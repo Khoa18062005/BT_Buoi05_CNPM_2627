@@ -1,1 +1,55 @@
-{}
+{
+  "roomTypes": [
+    {
+      "value": "standard",
+      "label": "Phòng Standard",
+      "price": 500000,
+      "description": "Phòng tiêu chuẩn, đầy đủ tiện nghi cơ bản"
+    },
+    {
+      "value": "deluxe",
+      "label": "Phòng Deluxe",
+      "price": 800000,
+      "description": "Phòng rộng rãi, có ban công và tầm nhìn đẹp"
+    },
+    {
+      "value": "vip",
+      "label": "Phòng VIP",
+      "price": 1500000,
+      "description": "Phòng hạng sang, không gian cao cấp và tiện ích đặc biệt"
+    }
+  ],
+  "services": [
+    {
+      "value": "breakfast",
+      "label": "Ăn sáng",
+      "price": 100000,
+      "unit": "person_night",
+      "unitLabel": "người/đêm"
+    },
+    {
+      "value": "airport",
+      "label": "Đưa đón sân bay",
+      "price": 300000,
+      "unit": "trip",
+      "unitLabel": "lần"
+    },
+    {
+      "value": "laundry",
+      "label": "Giặt ủi",
+      "price": 50000,
+      "unit": "person",
+      "unitLabel": "người"
+    }
+  ],
+  "limits": {
+    "minRooms": 1,
+    "maxRooms": 10,
+    "minAdults": 1,
+    "maxAdults": 20,
+    "minChildren": 0,
+    "maxChildren": 10,
+    "minAirportTrips": 1,
+    "maxAirportTrips": 10
+  }
+}

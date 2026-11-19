@@ -1,3 +1,858 @@
-/* CSS riêng cho Bài 1 — mọi selector bắt đầu bằng .bai01 */
-.bai01 {
+/*
+  Bài 1: Đăng ký tuyển sinh — mọi selector bắt đầu bằng .bai01
+  Ý tưởng: tông "trời xanh, nắng chanh" — từng nhóm là một tấm thẻ trắng nổi trên nền trời,
+  tiêu đề nhóm có chấm vàng; hoàn tất thì nhận một "vé" mã hồ sơ màu vàng chanh.
+*/
+
+.bai01 h2 {
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  line-height: 1.08;
+}
+
+.bai01 .muted {
+  color: var(--color-muted);
+}
+
+.bai01 .pre-line {
+  white-space: pre-line;
+}
+
+/* ---------- Thanh tiến trình (3 bước tuần tự) ---------- */
+.bai01 .stepper {
+  display: flex;
+  margin: 28px 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.bai01 .step {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.bai01 .step:last-child {
+  flex: 0 0 auto;
+}
+
+.bai01 .step:not(:last-child)::after {
+  content: '';
+  flex: 1;
+  height: 4px;
+  margin: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
+  transition: background 0.4s var(--ease-out);
+}
+
+.bai01 .step-number {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.bai01 .step.active {
+  color: var(--color-text);
+}
+
+.bai01 .step.active .step-number {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  box-shadow: 0 0 0 5px var(--color-primary-tint);
+  color: #fff;
+}
+
+.bai01 .step.done {
+  color: var(--color-primary);
+}
+
+.bai01 .step.done .step-number {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.bai01 .step.done:not(:last-child)::after {
+  background: var(--color-primary);
+}
+
+/* ---------- Các nhóm thông tin: thẻ trắng nổi trên nền trời ---------- */
+.bai01 .card {
+  margin-bottom: 18px;
+  padding: 28px 32px 32px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sheet);
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.bai01 .card:last-of-type {
+  margin-bottom: 24px;
+}
+
+.bai01 .card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  color: var(--color-text);
+  font-size: 1.375rem;
+}
+
+/* Chấm vàng chanh trước tiêu đề nhóm */
+.bai01 .card-title::before {
+  content: '';
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 5px var(--color-accent-soft);
+}
+
+/* ---------- Lưới & trường nhập ----------
+   Lưới 6 phần để chia hàng cân đối:
+   - Cá nhân:  Họ tên (4) | Giới tính (2) / Ngày sinh (2) | SĐT (2) | Email (2) / Địa chỉ (6)
+   - Đăng ký:  Trường (3) | Ngành (3) / Hệ đào tạo (2) | Năm (2) | Điểm TB (2)
+   - Bổ sung:  Ảnh (3) | Học bạ (3) / Ghi chú (6)
+*/
+.bai01 .form-grid {
+  --control-height: 48px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: start;
+  gap: 22px 20px;
+}
+
+.bai01 .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.bai01 .span-2 {
+  grid-column: span 2;
+}
+
+.bai01 .span-3 {
+  grid-column: span 3;
+}
+
+.bai01 .span-4 {
+  grid-column: span 4;
+}
+
+.bai01 .span-6 {
+  grid-column: 1 / -1;
+}
+
+.bai01 .form-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.bai01 .required {
+  color: var(--color-danger);
+}
+
+.bai01 .hint {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.bai01 input[type='text'],
+.bai01 input[type='tel'],
+.bai01 input[type='email'],
+.bai01 input[type='date'],
+.bai01 input[type='number'],
+.bai01 select,
+.bai01 textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: #f8fbff;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+/* Ô một dòng: cùng một chiều cao trên mọi trình duyệt (Safari tự co select & date) */
+.bai01 input[type='text'],
+.bai01 input[type='tel'],
+.bai01 input[type='email'],
+.bai01 input[type='date'],
+.bai01 input[type='number'],
+.bai01 select {
+  height: var(--control-height);
+  min-height: 0;
+  line-height: 1.25;
+}
+
+.bai01 input[type='date'] {
+  display: flex;
+  align-items: center;
+}
+
+.bai01 input[type='date']::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+.bai01 select {
+  padding-right: 42px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2355627a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+  background-size: 18px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.bai01 textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.bai01 input::placeholder,
+.bai01 textarea::placeholder {
+  color: #6e7a90;
+}
+
+.bai01 input:hover,
+.bai01 select:hover:not(:disabled),
+.bai01 textarea:hover {
+  border-color: var(--color-primary-soft);
+}
+
+.bai01 input:focus,
+.bai01 select:focus,
+.bai01 textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: var(--color-surface);
+  box-shadow: var(--focus-ring);
+}
+
+.bai01 select:disabled {
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
+/* .form-group tăng độ ưu tiên để thắng .bai01 input[type='...'] */
+.bai01 .form-group .input-error,
+.bai01 .form-group .input-error:hover {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-tint);
+}
+
+.bai01 .form-group .input-error:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 4px rgba(217, 45, 32, 0.16);
+}
+
+.bai01 .error-text {
+  display: flex;
+  gap: 6px;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.bai01 .error-text::before {
+  content: '!';
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+/* ---------- Giới tính: radio dạng viên thuốc ---------- */
+.bai01 .radio-group {
+  display: flex;
+  gap: 8px;
+}
+
+.bai01 .radio-group.input-error {
+  background: none;
+}
+
+.bai01 .radio-item {
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-height);
+  padding: 0 10px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+
+.bai01 .radio-group.input-error .radio-item {
+  border-color: var(--color-danger);
+}
+
+.bai01 .radio-item input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bai01 .radio-item:hover {
+  border-color: var(--color-primary-soft);
+  background: var(--color-primary-tint);
+}
+
+.bai01 .radio-item:has(input:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.bai01 .radio-item:has(input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+/* ---------- Tải file ---------- */
+.bai01 .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.bai01 .file-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--file-box-height, 138px);
+  padding: 16px;
+  border: 2px dashed var(--color-primary-soft);
+  border-radius: var(--radius);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.bai01 .file-drop:hover {
+  border-color: var(--color-primary);
+  background: #dceaff;
+}
+
+.bai01 .visually-hidden:focus-visible + .file-drop,
+.bai01 .visually-hidden:focus-visible + .file-info {
+  box-shadow: var(--focus-ring);
+}
+
+.bai01 .file-drop.input-error {
+  border-color: var(--color-danger);
+  background: var(--color-danger-tint);
+  color: var(--color-danger);
+}
+
+/* Icon tải lên vẽ bằng SVG (thay cho emoji trong JSX) */
+.bai01 .file-drop-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: currentColor;
+  font-size: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3Cpath d='M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3Cpath d='M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.bai01 .file-drop:hover .file-drop-icon {
+  transform: translateY(-3px);
+}
+
+.bai01 .file-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: var(--file-box-height, 138px);
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.bai01 .file-info.has-error {
+  border-color: var(--color-danger);
+  background: var(--color-danger-tint);
+}
+
+.bai01 .file-meta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bai01 .file-name {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bai01 .file-size {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.bai01 .file-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+/* File không phải ảnh: khối biểu tượng tài liệu cùng khổ 3×4 với ảnh đại diện */
+.bai01 .file-info:not(:has(.avatar-preview))::before {
+  content: '';
+  flex-shrink: 0;
+  width: 84px;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f6feb' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5'/%3E%3Cpath d='M9 13h6M9 17h4'/%3E%3C/svg%3E")
+      center / 40px no-repeat,
+    var(--color-primary-tint);
+}
+
+/* Tên file + nút xếp dọc để không bị cắt quá ngắn khi cột hẹp */
+.bai01 .file-info .file-meta {
+  gap: 2px;
+}
+
+.bai01 .file-info .file-actions {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Ảnh đại diện khổ 3×4 */
+.bai01 .avatar-preview {
+  flex-shrink: 0;
+  width: 84px;
+  aspect-ratio: 3 / 4;
+  height: auto;
+  border: 4px solid var(--color-surface);
+  border-radius: 10px;
+  background: var(--color-bg);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    0 6px 14px -6px rgba(31, 111, 235, 0.45);
+  object-fit: cover;
+}
+
+/* ---------- Bộ đếm ký tự ---------- */
+.bai01 .char-count {
+  align-self: flex-end;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.bai01 .char-count.over {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* ---------- Tóm tắt lỗi ---------- */
+.bai01 .error-summary {
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  border: 1px solid #f6c3be;
+  border-radius: var(--radius);
+  background: var(--color-danger-tint);
+  color: var(--color-danger);
+}
+
+/* ---------- Nút ---------- */
+.bai01 .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.bai01 .actions.center {
+  justify-content: center;
+}
+
+.bai01 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 26px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+
+.bai01 .btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.bai01 .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.bai01 .btn-primary {
+  min-width: 150px;
+  background: var(--color-primary);
+  box-shadow: 0 8px 18px -10px rgba(31, 111, 235, 0.8);
+  color: #fff;
+}
+
+.bai01 .btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 12px 22px -10px rgba(31, 111, 235, 0.85);
+  transform: translateY(-1px);
+}
+
+.bai01 .btn-secondary {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.bai01 .btn-secondary:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+}
+
+.bai01 .btn-danger {
+  background: transparent;
+  color: var(--color-danger);
+}
+
+.bai01 .btn-danger:hover {
+  background: var(--color-danger-tint);
+}
+
+.bai01 .btn-small {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 0.8125rem;
+}
+
+/* ---------- Bảng xác nhận ---------- */
+.bai01 .review-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bai01 .review-table th,
+.bai01 .review-table td {
+  padding: 13px 0;
+  border-bottom: 1px solid var(--color-primary-tint);
+  text-align: left;
+  vertical-align: top;
+}
+
+.bai01 .review-table tr:last-child th,
+.bai01 .review-table tr:last-child td {
+  border-bottom: none;
+}
+
+.bai01 .review-table th {
+  width: 34%;
+  padding-right: 16px;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.bai01 .review-table td {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Hoàn tất: "vé" mã hồ sơ màu vàng chanh ---------- */
+.bai01 .success-box {
+  padding: 48px 32px 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sheet);
+  background:
+    radial-gradient(circle at 50% -40%, var(--color-primary-tint) 0 55%, transparent 55.5%),
+    var(--color-surface);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.bai01 .success-icon {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 34px no-repeat,
+    var(--color-success);
+  box-shadow: 0 0 0 8px var(--color-success-tint);
+  color: transparent;
+  font-size: 0;
+}
+
+.bai01 .success-box h3 {
+  margin-bottom: 8px;
+  font-size: 1.875rem;
+}
+
+.bai01 .success-box > p {
+  max-width: 52ch;
+  margin-inline: auto;
+  color: var(--color-muted);
+}
+
+.bai01 .success-box > p strong {
+  color: var(--color-text);
+}
+
+.bai01 .record-code {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 30px 0 32px;
+  padding: 16px 40px 14px;
+  border-radius: 16px;
+  background: var(--color-accent);
+  box-shadow: 0 14px 28px -16px rgba(92, 67, 0, 0.6);
+  color: var(--color-accent-ink);
+  transform: rotate(-3deg);
+  animation: bai01-ticket 0.6s var(--ease-out) 0.15s both;
+}
+
+/* Hai lỗ khuyết hai bên như vé */
+.bai01 .record-code::before,
+.bai01 .record-code::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+
+.bai01 .record-code::before {
+  left: -9px;
+}
+
+.bai01 .record-code::after {
+  right: -9px;
+}
+
+.bai01 .record-code span {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.bai01 .record-code strong {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes bai01-ticket {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) rotate(4deg) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-3deg);
+  }
+}
+
+.bai01 .success-info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  max-width: 560px;
+  margin: 0 auto 30px;
+  text-align: left;
+}
+
+.bai01 .success-info dt,
+.bai01 .success-info dd {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--color-primary-tint);
+}
+
+.bai01 .success-info dt {
+  padding-right: 20px;
+  color: var(--color-muted);
+}
+
+.bai01 .success-info dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Máy tính bảng: lưới 2 cột ---------- */
+@media (max-width: 900px) {
+  .bai01 .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bai01 .span-2,
+  .bai01 .span-3 {
+    grid-column: span 1;
+  }
+
+  .bai01 .span-4,
+  .bai01 .span-6 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Điện thoại: lưới 1 cột ---------- */
+@media (max-width: 640px) {
+  .bai01 .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bai01 .span-2,
+  .bai01 .span-3,
+  .bai01 .span-4,
+  .bai01 .span-6 {
+    grid-column: 1 / -1;
+  }
+  .bai01 .avatar-preview,
+  .bai01 .file-info:not(:has(.avatar-preview))::before {
+    width: 60px;
+  }
+
+  .bai01 .file-info {
+    --file-box-height: 112px;
+    gap: 12px;
+  }
+}
+
+/* ---------- Màn hình nhỏ ---------- */
+@media (max-width: 768px) {
+  .bai01 .card {
+    padding: 22px 18px 24px;
+    border-radius: 18px;
+  }
+
+  .bai01 .card-title {
+    font-size: 1.1875rem;
+  }
+
+
+  .bai01 .step-label {
+    display: none;
+  }
+
+  .bai01 .step.active .step-label {
+    display: inline;
+    white-space: nowrap;
+  }
+
+  .bai01 .file-info {
+    flex-wrap: wrap;
+  }
+
+  .bai01 .actions {
+    flex-direction: column-reverse;
+  }
+
+  .bai01 .actions .btn {
+    width: 100%;
+  }
+
+  .bai01 .review-table th,
+  .bai01 .review-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .bai01 .review-table th {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .bai01 .success-box {
+    padding: 36px 18px 30px;
+  }
+
+  .bai01 .record-code {
+    padding-inline: 30px;
+  }
+
+  .bai01 .success-info {
+    grid-template-columns: 1fr;
+  }
+
+  .bai01 .success-info dt {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
 }

@@ -1,86 +1,86 @@
+/* ===== Khung chung: header trời sáng + nút "ngôi nhà" điều hướng nổi ===== */
+
 .app {
+  --page-inline: max(16px, calc((100% - 960px) / 2));
   min-height: 100vh;
 }
 
+/* ---------- Header ---------- */
 .app-header {
-  background: var(--color-surface);
-  box-shadow: var(--shadow);
-  padding: var(--gap);
   position: sticky;
   top: 0;
   z-index: 10;
+  padding: 14px var(--page-inline);
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(1.4) blur(10px);
 }
 
 .app-header h1 {
-  font-size: 1.4rem;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.app-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-
-.nav-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 150px;
-  padding: 8px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  color: var(--color-text);
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.nav-btn:hover {
-  border-color: var(--color-primary);
-}
-
-.nav-btn.active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #fff;
-}
-
-.nav-label {
-  font-weight: 700;
-}
-
-.nav-title {
-  font-size: 0.85rem;
-}
-
-.app-main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px var(--gap);
-}
-
-@media (max-width: 768px) {
-  .nav-btn {
-    min-width: calc(50% - 4px);
-    flex: 1;
-  }
+  font-size: 1.375rem;
+  font-weight: 800;
 }
 
 .app-title {
-  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
   text-decoration: none;
+  transition: color 0.2s;
 }
 
+.app-title:hover {
+  color: var(--color-primary);
+}
+
+/* Logo: mặt trời vàng chanh trên nền trời */
+.app-logo {
+  position: relative;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--color-primary);
+  overflow: hidden;
+}
+
+.app-logo::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(255, 210, 63, 0.3);
+}
+
+.app-logo::after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: -4px;
+  width: 26px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.app-main {
+  padding: 28px var(--page-inline) 120px;
+}
+
+/* ---------- Breadcrumb ---------- */
 .breadcrumb {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .link-btn {
@@ -88,41 +88,320 @@
   border: none;
   background: none;
   color: var(--color-primary);
+  font-weight: 600;
   cursor: pointer;
 }
 
 .link-btn:hover {
   text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
+/* ---------- Bài trước / Bài sau ---------- */
 .page-pager {
   display: flex;
   justify-content: space-between;
   gap: var(--gap);
-  margin-top: 32px;
-  padding-top: 16px;
+  margin-top: 48px;
+  padding-top: 24px;
   border-top: 1px solid var(--color-border);
 }
 
 .pager-btn {
-  padding: 8px 16px;
+  min-height: 44px;
+  padding: 0 20px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-pill);
   background: var(--color-surface);
   color: var(--color-text);
+  font-weight: 600;
   cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
 
 .pager-btn:hover {
   border-color: var(--color-primary);
+  background: var(--color-primary-tint);
   color: var(--color-primary);
 }
 
+/* ---------- 404 ---------- */
 .not-found {
+  padding: 64px 0;
   text-align: center;
-  padding: 48px 0;
+}
+
+.not-found h2 {
+  font-size: 2rem;
+}
+
+.not-found .subtitle {
+  margin-inline: auto;
 }
 
 .not-found .pager-btn {
-  margin-top: 16px;
+  margin-top: 24px;
+}
+
+/* ==========================================================
+   Nút "ngôi nhà" ở góc dưới bên phải
+   Hover (chuột) hoặc bấm (cảm ứng, bàn phím) để hiện 4 bài
+   ========================================================== */
+.house-nav {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* Khung nav bao cả vùng menu đang ẩn: không cho nó chặn click vào nội dung bên dưới
+     (VD: nút "Đăng ký" nằm ở góc phải). Chỉ nút nhà và menu đang mở mới nhận chuột. */
+  pointer-events: none;
+}
+
+.house-btn {
+  pointer-events: auto;
+}
+
+/* Menu nằm ngay trên nút; padding-bottom thay cho margin để chuột
+   đi từ nút lên menu không bị "rơi" ra khỏi vùng hover */
+.house-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 0;
+  padding: 0 0 14px;
+  list-style: none;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 0.3s;
+}
+
+.house-menu li {
+  opacity: 0;
+  transform: translateY(14px) scale(0.92);
+  transform-origin: right bottom;
+  transition:
+    opacity 0.18s ease-in,
+    transform 0.18s ease-in;
+}
+
+.house-nav.open .house-menu {
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.house-nav.open .house-menu li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.35s var(--ease-out),
+    transform 0.45s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* Chỉ mở bằng hover trên thiết bị có chuột thật */
+@media (hover: hover) {
+  .house-nav:hover .house-menu {
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+
+  .house-nav:hover .house-menu li {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.35s var(--ease-out),
+      transform 0.45s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 45ms);
+  }
+}
+
+.house-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 18px 6px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.25s var(--ease-out);
+}
+
+.house-link-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.house-link-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.house-link:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateX(-4px);
+}
+
+.house-link:focus-visible {
+  outline-offset: 3px;
+}
+
+/* Bài đang mở */
+.house-link.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.house-link.active .house-link-label {
+  background: #fff;
+  color: var(--color-primary);
+}
+
+/* Bản thân nút ngôi nhà */
+.house-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: none;
+  border-radius: 22px;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-float);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-radius 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out);
+}
+
+.house-btn svg {
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+}
+
+.house-roof,
+.house-walls {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.house-roof {
+  transition: transform 0.35s var(--ease-out);
+}
+
+.house-door {
+  fill: var(--color-accent);
+  transition: fill 0.25s;
+}
+
+.house-btn:active {
+  transform: scale(0.94);
+}
+
+.house-btn:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Trạng thái mở: nhà "sáng đèn" — nền vàng chanh, mái nhấc nhẹ */
+.house-nav.open .house-btn {
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.house-nav.open .house-door {
+  fill: var(--color-primary);
+}
+
+.house-nav.open .house-roof {
+  transform: translateY(-2px);
+}
+
+@media (hover: hover) {
+  .house-nav:hover .house-btn {
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .house-nav:hover .house-door {
+    fill: var(--color-primary);
+  }
+
+  .house-nav:hover .house-roof {
+    transform: translateY(-2px);
+  }
+}
+
+/* Ẩn dòng gợi ý ở trang chủ khi menu đã mở, tránh chữ lộ giữa các nút */
+.app:has(.house-nav.open) .home-hint {
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .app:has(.house-nav:hover) .home-hint {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 1.125rem;
+  }
+
+  .app-logo {
+    width: 26px;
+    height: 26px;
+  }
+
+  .page-pager {
+    flex-direction: column;
+  }
+
+  .house-nav {
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+
+  .house-btn {
+    width: 58px;
+    height: 58px;
+    border-radius: 20px;
+  }
 }
