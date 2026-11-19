@@ -1,20 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+/*
+  Hệ token chung — chủ đề "trời xanh, nắng chanh"
+  Nền trắng xanh như bầu trời buổi sáng, màu chính xanh trời, điểm nhấn vàng chanh.
+  Tên biến --color-* giữ nguyên để các bài dùng chung (xem claude.md mục 6.3)
+*/
 :root {
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-danger: #dc2626;
-  --color-success: #16a34a;
-  --color-text: #1f2937;
-  --color-muted: #6b7280;
-  --color-border: #d1d5db;
-  --color-bg: #f3f4f6;
+  --color-primary: #1f6feb; /* xanh trời — đủ tương phản cho chữ trên nền trắng */
+  --color-primary-hover: #1557c4;
+  --color-primary-soft: #7fb0ff;
+  --color-primary-tint: #eaf3ff;
+  --color-accent: #ffd23f; /* vàng chanh — chỉ dùng làm nền, chữ đặt lên phải là màu đậm */
+  --color-accent-soft: #fff4c2;
+  --color-accent-ink: #5c4300; /* chữ trên nền vàng */
+  --color-danger: #d92d20;
+  --color-danger-tint: #fff1ef;
+  --color-success: #12925b;
+  --color-success-tint: #eafaf2;
+  --color-seal: var(--color-primary); /* giữ biến cũ cho tương thích */
+  --color-text: #14213d;
+  --color-muted: #55627a;
+  --color-border: #d3e2f5;
+  --color-bg: #f2f8ff; /* trời sáng */
   --color-surface: #ffffff;
-  --radius: 8px;
+
+  --font-body: 'Be Vietnam Pro', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Baloo 2', 'Be Vietnam Pro', system-ui, sans-serif;
+
+  --radius: 12px;
+  --radius-sheet: 22px;
+  --radius-pill: 999px;
   --gap: 16px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.5;
+  --shadow: 0 1px 2px rgba(20, 33, 61, 0.06), 0 14px 32px -18px rgba(31, 111, 235, 0.35);
+  --shadow-float: 0 4px 10px rgba(20, 33, 61, 0.1), 0 22px 44px -16px rgba(31, 111, 235, 0.5);
+  --focus-ring: 0 0 0 4px rgba(31, 111, 235, 0.22);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
   color: var(--color-text);
   background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  accent-color: var(--color-primary);
+  caret-color: var(--color-primary);
+  scrollbar-color: var(--color-primary-soft) transparent;
 }
 
 *,
@@ -26,6 +56,12 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background: var(--color-bg);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-text);
 }
 
 h1,
@@ -35,14 +71,41 @@ p {
   margin: 0;
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
 button,
 input,
 select,
 textarea {
   font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .subtitle {
+  max-width: 62ch;
+  margin-top: 6px;
   color: var(--color-muted);
-  margin-top: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
