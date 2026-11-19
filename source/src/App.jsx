@@ -1,121 +1,158 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useEffect, useState } from 'react'
+import Home from './pages/Home'
+import Bai01 from './pages/Bai01'
+import Bai02 from './pages/Bai02'
+import Bai03 from './pages/Bai03'
+import Bai04 from './pages/Bai04'
 import './App.css'
 
+// Cấu hình điều hướng: mỗi bài có đường dẫn riêng (#/bai01, #/bai02, ...)
+const ROUTES = [
+  {
+    path: '/bai01',
+    label: 'Bài 1',
+    title: 'Đăng ký tuyển sinh',
+    description: 'Form đăng ký, kiểm tra dữ liệu, xác nhận thông tin trước khi gửi.',
+    component: Bai01,
+  },
+  {
+    path: '/bai02',
+    label: 'Bài 2',
+    title: 'Đặt phòng khách sạn',
+    description: 'Chọn ngày, loại phòng, dịch vụ và tự động tính tổng chi phí.',
+    component: Bai02,
+  },
+  {
+    path: '/bai03',
+    label: 'Bài 3',
+    title: 'Tạo đề thi trắc nghiệm',
+    description: 'Thêm/sửa/xoá câu hỏi, đáp án, tính tổng điểm và xuất JSON.',
+    component: Bai03,
+  },
+  {
+    path: '/bai04',
+    label: 'Bài 4',
+    title: 'Thêm mới nhân viên',
+    description: 'Thông tin cá nhân, công việc, kỹ năng, chứng chỉ và kiểm tra trùng mã.',
+    component: Bai04,
+  },
+]
+
+const HOME_PATH = '/'
+
+// Đọc đường dẫn hiện tại từ hash: "#/bai01" -> "/bai01"
+function getPathFromHash() {
+  const path = window.location.hash.replace(/^#/, '')
+  return path || HOME_PATH
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [path, setPath] = useState(getPathFromHash)
+
+  // Đồng bộ khi người dùng bấm Back/Forward hoặc sửa URL trực tiếp
+  useEffect(() => {
+    const handleHashChange = () => {
+      setPath(getPathFromHash())
+      window.scrollTo(0, 0)
+    }
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  const navigate = (to) => {
+    window.location.hash = to
+  }
+
+  const currentIndex = ROUTES.findIndex((r) => r.path === path)
+  const current = ROUTES[currentIndex]
+  const isHome = path === HOME_PATH
+  const Page = current?.component
+  const prev = ROUTES[currentIndex - 1]
+  const next = ROUTES[currentIndex + 1]
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      <header className="app-header">
+        <h1>
+          <a
+            href="#/"
+            className="app-title"
+            onClick={(e) => {
+              e.preventDefault()
+              navigate(HOME_PATH)
+            }}
+          >
+            Bài tập Buổi 05 — React
+          </a>
+        </h1>
+        <nav className="app-nav">
+          <button
+            type="button"
+            className={isHome ? 'nav-btn active' : 'nav-btn'}
+            onClick={() => navigate(HOME_PATH)}
+          >
+            <span className="nav-label">Trang chủ</span>
+            <span className="nav-title">Danh sách bài</span>
+          </button>
+          {ROUTES.map((r) => (
+            <button
+              key={r.path}
+              type="button"
+              className={r.path === path ? 'nav-btn active' : 'nav-btn'}
+              onClick={() => navigate(r.path)}
+            >
+              <span className="nav-label">{r.label}</span>
+              <span className="nav-title">{r.title}</span>
+            </button>
+          ))}
+        </nav>
+      </header>
 
-      <div className="ticks"></div>
+      <main className="app-main">
+        {isHome && <Home routes={ROUTES} onNavigate={navigate} />}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {Page && (
+          <>
+            <div className="breadcrumb">
+              <button type="button" className="link-btn" onClick={() => navigate(HOME_PATH)}>
+                Trang chủ
+              </button>
+              <span>/</span>
+              <span>
+                {current.label}: {current.title}
+              </span>
+            </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+            <Page key={current.path} />
+
+            <div className="page-pager">
+              {prev ? (
+                <button type="button" className="pager-btn" onClick={() => navigate(prev.path)}>
+                  ← {prev.label}: {prev.title}
+                </button>
+              ) : (
+                <span />
+              )}
+              {next && (
+                <button type="button" className="pager-btn" onClick={() => navigate(next.path)}>
+                  {next.label}: {next.title} →
+                </button>
+              )}
+            </div>
+          </>
+        )}
+
+        {!isHome && !Page && (
+          <div className="not-found">
+            <h2>Không tìm thấy trang</h2>
+            <p className="subtitle">Đường dẫn "{path}" không tồn tại.</p>
+            <button type="button" className="pager-btn" onClick={() => navigate(HOME_PATH)}>
+              Về trang chủ
+            </button>
+          </div>
+        )}
+      </main>
+    </div>
   )
 }
 

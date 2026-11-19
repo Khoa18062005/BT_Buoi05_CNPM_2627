@@ -32,7 +32,7 @@ Buổi 05/
 └── source/
     └── src/
         ├── main.jsx          # Không sửa (chỉ import index.css + App)
-        ├── App.jsx           # Thanh điều hướng 4 bài
+        ├── App.jsx           # Cấu hình điều hướng (ROUTES) + khung trang
         ├── App.css           # CSS cho khung chung + thanh điều hướng
         ├── index.css         # Reset + biến CSS dùng chung (màu, font, khoảng cách)
         ├── data/
@@ -41,11 +41,13 @@ Buổi 05/
         │   ├── Bai03.json    # Tạo đề thi trắc nghiệm
         │   └── Bai04.json    # Thêm mới nhân viên
         ├── pages/
+        │   ├── Home.jsx      # Trang chủ: danh sách thẻ dẫn đến từng bài
         │   ├── Bai01.jsx
         │   ├── Bai02.jsx
         │   ├── Bai03.jsx
         │   └── Bai04.jsx
         └── styles/
+            ├── Home.css
             ├── Bai01.css
             ├── Bai02.css
             ├── Bai03.css
@@ -54,65 +56,50 @@ Buổi 05/
 
 Quy tắc đặt tên:
 - Tên file của một bài **luôn là `BaiXX`** (2 chữ số) và giống nhau ở cả 3 thư mục: `data/Bai01.json` ↔ `pages/Bai01.jsx` ↔ `styles/Bai01.css`.
+- Ngoài 4 bài chỉ có thêm `pages/Home.jsx` + `styles/Home.css` (trang chủ điều hướng).
 - Mỗi bài **gói gọn trong đúng 3 file** đó. Không tạo thêm thư mục `components/`, `utils/`, `hooks/`. Component con / hàm phụ trợ của bài nào thì khai báo ngay trong file `.jsx` của bài đó (phía trên component chính).
 - Không import chéo giữa các bài (Bai02 không được import gì từ Bai01).
 - Xoá các asset mẫu của Vite không dùng tới (`hero.png`, `react.svg`, `vite.svg`) khỏi `App.jsx`.
 
 ---
 
-## 3. App.jsx — điều hướng giữa 4 bài
+## 3. App.jsx — điều hướng giữa các trang
 
-Không dùng router. Điều hướng bằng `useState` + mảng cấu hình:
+Không dùng react-router. Điều hướng bằng **hash URL** để mỗi bài có đường dẫn riêng, có thể mở trực tiếp, bookmark, dùng nút Back/Forward của trình duyệt:
+
+| Đường dẫn | Trang |
+|---|---|
+| `#/` (hoặc không có hash) | Trang chủ — `pages/Home.jsx` |
+| `#/bai01` | Bài 1 — Đăng ký tuyển sinh |
+| `#/bai02` | Bài 2 — Đặt phòng khách sạn |
+| `#/bai03` | Bài 3 — Tạo đề thi trắc nghiệm |
+| `#/bai04` | Bài 4 — Thêm mới nhân viên |
+| đường dẫn khác | Thông báo "Không tìm thấy trang" |
+
+Cấu hình đặt trong **một mảng `ROUTES` duy nhất** ở `App.jsx`; thanh nút, trang chủ, breadcrumb và nút Bài trước/Bài sau đều sinh ra từ mảng này:
 
 ```jsx
-import { useState } from 'react'
-import Bai01 from './pages/Bai01'
-import Bai02 from './pages/Bai02'
-import Bai03 from './pages/Bai03'
-import Bai04 from './pages/Bai04'
-import './App.css'
-
-const BAI_TAP = [
-  { id: 1, label: 'Bài 1', title: 'Đăng ký tuyển sinh', component: Bai01 },
-  { id: 2, label: 'Bài 2', title: 'Đặt phòng khách sạn', component: Bai02 },
-  { id: 3, label: 'Bài 3', title: 'Tạo đề thi trắc nghiệm', component: Bai03 },
-  { id: 4, label: 'Bài 4', title: 'Thêm mới nhân viên', component: Bai04 },
+const ROUTES = [
+  { path: '/bai01', label: 'Bài 1', title: 'Đăng ký tuyển sinh', description: '...', component: Bai01 },
+  // ...
 ]
-
-function App() {
-  const [activeId, setActiveId] = useState(1)
-  const current = BAI_TAP.find((b) => b.id === activeId)
-  const Page = current.component
-
-  return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Bài tập Buổi 05 — React</h1>
-        <nav className="app-nav">
-          {BAI_TAP.map((b) => (
-            <button
-              key={b.id}
-              type="button"
-              className={b.id === activeId ? 'nav-btn active' : 'nav-btn'}
-              onClick={() => setActiveId(b.id)}
-            >
-              {b.label}: {b.title}
-            </button>
-          ))}
-        </nav>
-      </header>
-      <main className="app-main">
-        <Page key={current.id} />
-      </main>
-    </div>
-  )
-}
-
-export default App
 ```
 
-- `key={current.id}` để khi chuyển bài, state của bài cũ được reset sạch.
-- App.jsx **chỉ** lo điều hướng và khung trang; không chứa logic của bài nào.
+Cơ chế:
+- `path` lưu trong state, khởi tạo từ `window.location.hash`.
+- `useEffect` lắng nghe sự kiện `hashchange` để cập nhật state (gỡ listener khi unmount).
+- Hàm `navigate(to)` chỉ gán `window.location.hash = to`; không gọi `setPath` trực tiếp.
+- Render trang bài bằng `<Page key={current.path} />` để state của bài cũ được reset khi chuyển bài.
+
+Bố cục khung trang:
+1. Header cố định: tiêu đề (bấm về trang chủ) + hàng nút *Trang chủ, Bài 1…4*, nút đang mở có class `active`.
+2. Breadcrumb `Trang chủ / Bài X: Tên bài`.
+3. Nội dung bài.
+4. Nút `← Bài trước` / `Bài sau →` ở cuối trang.
+
+Muốn thêm bài mới: tạo đủ 3 file `BaiXX`, import component và thêm 1 phần tử vào `ROUTES` — không sửa chỗ nào khác.
+
+App.jsx **chỉ** lo điều hướng và khung trang; không chứa logic của bài nào.
 
 ---
 
@@ -283,7 +270,8 @@ Dùng một state `step` thay cho nhiều boolean:
 
 ### 6.1 Phân chia
 - `index.css`: reset (`box-sizing: border-box`, margin 0), font chung, và **biến CSS dùng chung** trong `:root`. Thay toàn bộ nội dung mẫu của Vite.
-- `App.css`: chỉ CSS cho khung `.app`, `.app-header`, `.app-nav`, `.nav-btn`, `.app-main`.
+- `App.css`: chỉ CSS cho khung chung: `.app`, `.app-header`, `.app-nav`, `.nav-btn`, `.app-main`, `.breadcrumb`, `.page-pager`, `.not-found`.
+- `styles/Home.css`: CSS trang chủ, mọi selector bắt đầu bằng `.home`.
 - `styles/BaiXX.css`: CSS riêng của từng bài.
 
 ### 6.2 Tránh đè CSS giữa các bài (quan trọng)
@@ -376,6 +364,6 @@ Quy ước chi tiết:
 
 ## 9. Khi làm việc với AI (Claude)
 - Đọc file này và đề bài PDF trước khi viết code.
-- Làm từng bài một, mỗi bài đủ 3 file `data/BaiXX.json`, `pages/BaiXX.jsx`, `styles/BaiXX.css`, sau đó mới cập nhật `App.jsx`.
+- Làm từng bài một, mỗi bài đủ 3 file `data/BaiXX.json`, `pages/BaiXX.jsx`, `styles/BaiXX.css`, sau đó thêm/cập nhật phần tử tương ứng trong `ROUTES` của `App.jsx`.
 - Không tự ý thêm thư viện, thêm thư mục, hay đổi cấu trúc đã quy định ở mục 2.
 - Sau khi viết xong mỗi bài: chạy `npm run lint` và `npm run build` để chắc chắn không lỗi.
