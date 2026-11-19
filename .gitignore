@@ -5,6 +5,7 @@
 .claude/
 .aider-desk/
 skills-lock.json
+RECOMMENDED_SKILLS.md
 
 # ==========================================================
 # Dependencies & Build Outputs
