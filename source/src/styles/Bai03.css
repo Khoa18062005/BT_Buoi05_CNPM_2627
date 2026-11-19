@@ -10,11 +10,19 @@
   padding-bottom: 48px;
 }
 
+/* Icon SVG Utility */
+.bai03 .bai03-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  stroke-width: 2px;
+}
+
 /* 1. Header & Tiêu đề bài */
 .bai03-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 16px;
   margin-bottom: 20px;
   flex-wrap: wrap;
@@ -34,45 +42,57 @@
   max-width: 600px;
 }
 
-/* Thanh chuyển đổi Tab */
-.bai03-tab-switch {
-  display: flex;
-  background: #e5e7eb;
+/* Segmented Control Hiện Đại (Thay thế pill button AI-slop) */
+.bai03-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   padding: 3px;
-  border-radius: var(--radius);
-  gap: 4px;
+  gap: 2px;
 }
 
-.bai03-tab-btn {
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-muted);
+.bai03-segment-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
   background: transparent;
-  border: none;
-  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid transparent;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
-.bai03-tab-btn:hover {
-  color: var(--color-text);
+.bai03-segment-btn:hover {
+  color: #1e293b;
 }
 
-.bai03-tab-btn.active {
-  background: var(--color-surface);
-  color: var(--color-primary);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+.bai03-segment-btn.active {
+  background: #ffffff;
+  color: #1e293b;
+  font-weight: 600;
+  border-color: #cbd5e1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bai03-segment-btn .bai03-icon {
+  color: currentColor;
 }
 
 /* 2. Toast Notification */
 .bai03-toast {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 10px;
+  padding: 10px 14px;
   border-radius: var(--radius);
-  font-size: 14px;
+  font-size: 13.5px;
   margin-bottom: 16px;
   animation: bai03FadeIn 0.2s ease;
 }
@@ -80,7 +100,7 @@
 @keyframes bai03FadeIn {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
   to {
     opacity: 1;
@@ -101,20 +121,21 @@
 }
 
 .bai03-toast-icon {
-  font-weight: 700;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-/* 3. Dashboard Thống Kê Thời Gian Thực */
+/* 3. Dashboard Thống Kê Thời Gian Thực (Thiết kế thanh lịch, diệt AI-slop) */
 .bai03-stat-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 16px;
   background: var(--color-surface);
-  padding: 14px 18px;
+  padding: 14px 20px;
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   margin-bottom: 20px;
 }
 
@@ -125,40 +146,60 @@
 }
 
 .bai03-stat-label {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-muted);
+  letter-spacing: 0.05em;
+  color: #64748b;
 }
 
 .bai03-stat-value {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
 }
 
 .bai03-score-highlight {
   color: var(--color-primary);
+  font-weight: 700;
 }
 
 .bai03-stat-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 2px 8px;
   border-radius: 999px;
   width: fit-content;
 }
 
+.bai03-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 .bai03-stat-badge.valid {
-  background: #dcfce7;
-  color: #15803d;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.bai03-stat-badge.valid .bai03-badge-dot {
+  background: #16a34a;
 }
 
 .bai03-stat-badge.invalid {
-  background: #fef3c7;
-  color: #b45309;
+  background: #fefce8;
+  color: #854d0e;
+  border: 1px solid #fef08a;
+}
+
+.bai03-stat-badge.invalid .bai03-badge-dot {
+  background: #ca8a04;
 }
 
 /* 4. Thẻ Card Chung */
@@ -166,7 +207,7 @@
   background: var(--color-surface);
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   padding: 20px 24px;
   margin-bottom: 20px;
 }
@@ -175,17 +216,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #f3f4f6;
-  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
   margin-bottom: 18px;
   flex-wrap: wrap;
   gap: 12px;
 }
 
 .bai03-card-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--color-text);
+  color: #1e293b;
 }
 
 .bai03-card-desc {
@@ -200,21 +241,24 @@
 }
 
 .bai03-btn-subtle {
-  background: #f9fafb;
-  border: 1px solid var(--color-border);
-  padding: 6px 12px;
-  border-radius: calc(var(--radius) - 2px);
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 12.5px;
   font-weight: 500;
-  color: #4b5563;
+  color: #334155;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .bai03-btn-subtle:hover {
-  background: #f3f4f6;
-  color: var(--color-text);
-  border-color: #9ca3af;
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
 }
 
 /* Lưới 2 cột cho Form */
@@ -236,9 +280,9 @@
 }
 
 .bai03-form-group label {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
-  color: #374151;
+  color: #334155;
 }
 
 .bai03-required {
@@ -251,9 +295,9 @@
 .bai03 select,
 .bai03 textarea {
   width: 100%;
-  padding: 9px 12px;
+  padding: 8px 12px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: 6px;
   background: var(--color-surface);
   color: var(--color-text);
   font-size: 14px;
@@ -265,7 +309,7 @@
 .bai03 select:focus,
 .bai03 textarea:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .bai03 textarea {
@@ -286,6 +330,9 @@
 }
 
 .bai03-notice-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-top: 14px;
   padding: 8px 12px;
   background: #eff6ff;
@@ -299,7 +346,7 @@
 .bai03-questions-stack {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .bai03-question-item {
@@ -330,9 +377,9 @@
 }
 
 .bai03-q-badge {
-  background: #1e293b;
+  background: #0f172a;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   padding: 3px 9px;
   border-radius: 6px;
@@ -340,7 +387,7 @@
 
 .bai03-q-type-badge {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: #475569;
   background: #e2e8f0;
   padding: 3px 8px;
@@ -359,22 +406,25 @@
   gap: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: #4b5563;
+  color: #475569;
 }
 
 .bai03-score-control input {
-  width: 70px !important;
-  padding: 4px 8px !important;
+  width: 68px !important;
+  padding: 4px 6px !important;
   text-align: center;
   font-weight: 700;
 }
 
 .bai03-btn-delete {
-  background: #fee2e2;
-  color: var(--color-danger);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #fef2f2;
+  color: #b91c1c;
   border: 1px solid #fecaca;
   padding: 5px 10px;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: 6px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -382,7 +432,7 @@
 }
 
 .bai03-btn-delete:hover {
-  background: #fecaca;
+  background: #fee2e2;
   border-color: #fca5a5;
 }
 
@@ -398,7 +448,7 @@
 .bai03-field-label {
   font-size: 13px;
   font-weight: 600;
-  color: #374151;
+  color: #334155;
 }
 
 .bai03-radio-group {
@@ -412,15 +462,15 @@
   gap: 6px;
   font-size: 13px;
   font-weight: 500;
-  color: #1f2937;
+  color: #1e293b;
   cursor: pointer;
 }
 
 /* Section Đáp Án */
 .bai03-options-section {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
   padding: 14px 16px;
 }
 
@@ -450,8 +500,8 @@
   gap: 8px;
   padding: 6px 8px;
   border-radius: 6px;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   transition: all 0.15s ease;
 }
 
@@ -471,30 +521,33 @@
 
 .bai03-correct-picker input {
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   accent-color: var(--color-success);
 }
 
 .bai03-opt-letter {
   font-weight: 700;
-  font-size: 14px;
-  color: #1f2937;
-  min-width: 16px;
+  font-size: 13.5px;
+  color: #1e293b;
+  min-width: 14px;
 }
 
 .bai03-opt-input {
   flex: 1;
-  border: 1px solid #d1d5db !important;
+  border: 1px solid #cbd5e1 !important;
   background: #ffffff !important;
   padding: 6px 10px !important;
-  font-size: 14px !important;
+  font-size: 13.5px !important;
 }
 
 .bai03-badge-correct {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 12px;
   font-weight: 600;
-  color: #15803d;
+  color: #166534;
   background: #dcfce7;
   padding: 3px 8px;
   border-radius: 4px;
@@ -503,11 +556,11 @@
 
 .bai03-btn-opt-delete {
   background: transparent;
-  color: #9ca3af;
+  color: #94a3b8;
   border: none;
-  font-size: 16px;
-  width: 28px;
-  height: 28px;
+  font-size: 14px;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -522,26 +575,30 @@
 }
 
 .bai03-btn-opt-delete:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 
 .bai03-btn-add-opt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   margin-top: 10px;
   background: transparent;
   border: 1px dashed #cbd5e1;
   color: #475569;
-  padding: 6px 12px;
-  border-radius: 4px;
+  padding: 7px 12px;
+  border-radius: 6px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   width: 100%;
   transition: all 0.15s;
 }
 
 .bai03-btn-add-opt:hover:not(:disabled) {
-  background: #f1f5f9;
+  background: #f8fafc;
   border-color: #94a3b8;
   color: var(--color-primary);
 }
@@ -565,15 +622,15 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 14px 20px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   margin-top: 24px;
   flex-wrap: wrap;
   gap: 12px;
 }
 
 .bai03-action-summary {
-  font-size: 14px;
-  color: #4b5563;
+  font-size: 13.5px;
+  color: #475569;
 }
 
 .bai03-action-buttons {
@@ -583,8 +640,11 @@
 
 /* Button styles theo chuẩn claude.md */
 .bai03-btn {
-  padding: 9px 18px;
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  font-size: 13.5px;
   font-weight: 600;
   border-radius: var(--radius);
   cursor: pointer;
@@ -602,13 +662,14 @@
 }
 
 .bai03-btn-secondary {
-  background: #f3f4f6;
-  color: #374151;
-  border-color: #d1d5db;
+  background: #f8fafc;
+  color: #334155;
+  border-color: #cbd5e1;
 }
 
 .bai03-btn-secondary:hover {
-  background: #e5e7eb;
+  background: #f1f5f9;
+  border-color: #94a3b8;
 }
 
 .bai03-btn-outline {
@@ -636,7 +697,7 @@
   border: 1px solid var(--color-border);
   padding: 12px 18px;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -652,24 +713,27 @@
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 500;
+  color: #334155;
   cursor: pointer;
 }
 
 .bai03-toggle-label input {
   cursor: pointer;
+  width: 15px;
+  height: 15px;
+  accent-color: var(--color-primary);
 }
 
-/* Tờ đề thi trắng chuẩn sư phạm */
+/* Tờ đề thi chuẩn sư phạm */
 .bai03-exam-paper {
   background: #ffffff;
-  border: 1px solid #d1d5db;
+  border: 1px solid #cbd5e1;
   border-radius: var(--radius);
   padding: 36px 40px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
   font-family: 'Times New Roman', Times, serif, system-ui;
-  color: #111827;
+  color: #0f172a;
   line-height: 1.6;
 }
 
@@ -677,26 +741,27 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 2px solid #111827;
+  border-bottom: 2px solid #0f172a;
   padding-bottom: 14px;
   margin-bottom: 18px;
 }
 
 .bai03-paper-school h4 {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   margin: 0;
   text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .bai03-paper-school p {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   margin: 2px 0 0 0;
 }
 
 .bai03-paper-meta-right p {
-  font-size: 14px;
+  font-size: 13.5px;
   margin: 2px 0;
   text-align: right;
 }
@@ -707,23 +772,23 @@
 }
 
 .bai03-paper-exam-name {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   text-transform: uppercase;
   margin: 0;
 }
 
 .bai03-paper-note {
-  font-size: 14px;
+  font-size: 13.5px;
   font-style: italic;
   margin-top: 4px;
-  color: #4b5563;
+  color: #475569;
 }
 
 .bai03-student-info-mock {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 13.5px;
   margin: 14px 0 8px 0;
   flex-wrap: wrap;
   gap: 10px;
@@ -731,7 +796,7 @@
 
 .bai03-paper-divider {
   border: none;
-  border-top: 1px dashed #9ca3af;
+  border-top: 1px dashed #94a3b8;
   margin: 16px 0 24px 0;
 }
 
@@ -743,7 +808,7 @@
 }
 
 .bai03-paper-q-block {
-  font-size: 16px;
+  font-size: 15.5px;
 }
 
 .bai03-paper-q-title {
@@ -757,7 +822,7 @@
 .bai03-paper-q-score {
   font-weight: 600;
   font-style: italic;
-  color: #4b5563;
+  color: #64748b;
   margin-left: 6px;
 }
 
@@ -780,7 +845,7 @@
 }
 
 .bai03-paper-opt-item:hover {
-  background: #f3f4f6;
+  background: #f8fafc;
 }
 
 .bai03-paper-opt-item.chosen {
@@ -799,7 +864,10 @@
 }
 
 .bai03-paper-badge-key {
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #15803d;
   background: #bbf7d0;
@@ -812,7 +880,7 @@
   text-align: center;
   margin-top: 36px;
   padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #e2e8f0;
 }
 
 .bai03-paper-footer p {
@@ -824,7 +892,7 @@
   font-size: 13px !important;
   font-weight: 400 !important;
   font-style: italic;
-  color: #6b7280;
+  color: #64748b;
   margin-top: 4px;
 }
 
@@ -845,7 +913,7 @@
 .bai03-modal {
   background: var(--color-surface);
   border-radius: 12px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   width: 100%;
   max-width: 760px;
   max-height: 85vh;
@@ -859,13 +927,13 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 18px 24px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--color-border);
-  background: #f9fafb;
+  background: #f8fafc;
 }
 
 .bai03-modal-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--color-text);
 }
@@ -879,8 +947,7 @@
 .bai03-btn-icon {
   background: transparent;
   border: none;
-  font-size: 18px;
-  color: #9ca3af;
+  color: #64748b;
   cursor: pointer;
   width: 32px;
   height: 32px;
@@ -892,12 +959,12 @@
 }
 
 .bai03-btn-icon:hover {
-  background: #e5e7eb;
+  background: #e2e8f0;
   color: var(--color-text);
 }
 
 .bai03-modal-body {
-  padding: 20px 24px;
+  padding: 18px 20px;
   overflow-y: auto;
   background: #0f172a;
 }
@@ -916,13 +983,13 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  padding: 16px 24px;
+  padding: 14px 20px;
   border-top: 1px solid var(--color-border);
-  background: #f9fafb;
+  background: #f8fafc;
   flex-wrap: wrap;
 }
 
-/* Responsive quy định trong claude.md (Lưới 1 cột khi max-width: 768px) */
+/* Responsive quy định trong claude.md */
 @media (max-width: 768px) {
   .bai03-grid-2 {
     grid-template-columns: 1fr;

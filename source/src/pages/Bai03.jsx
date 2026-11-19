@@ -2,7 +2,139 @@ import { useState, useEffect } from 'react'
 import data from '../data/Bai03.json'
 import '../styles/Bai03.css'
 
-// 1. Hằng số & Giá trị khởi tạo
+// 1. Các Component Icon SVG Tối Giản (Thay thế hoàn toàn Emojis, không cài thư viện)
+function IconEdit() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+    </svg>
+  )
+}
+
+function IconEye() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
+
+function IconSave() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+      <polyline points="17 21 17 13 7 13 7 21" />
+      <polyline points="7 3 7 8 15 8" />
+    </svg>
+  )
+}
+
+function IconPlus() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+  )
+}
+
+function IconTrash() {
+  return (
+    <svg className="bai03-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    </svg>
+  )
+}
+
+function IconRefresh() {
+  return (
+    <svg className="bai03-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="23 4 23 10 17 10" />
+      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+    </svg>
+  )
+}
+
+function IconFileSample() {
+  return (
+    <svg className="bai03-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+    </svg>
+  )
+}
+
+function IconArrowLeft() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <line x1="19" y1="12" x2="5" y2="12" />
+      <polyline points="12 19 5 12 12 5" />
+    </svg>
+  )
+}
+
+function IconCheck() {
+  return (
+    <svg className="bai03-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+
+function IconCopy() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  )
+}
+
+function IconDownload() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  )
+}
+
+function IconClose() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
+
+function IconInfo() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="16" x2="12" y2="12" />
+      <line x1="12" y1="8" x2="12.01" y2="8" />
+    </svg>
+  )
+}
+
+function IconAlertTriangle() {
+  return (
+    <svg className="bai03-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+      <line x1="12" y1="9" x2="12" y2="13" />
+      <line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+  )
+}
+
+// 2. Hằng số & Giá trị khởi tạo
 const STORAGE_KEY = 'exam_maker_bai03_draft'
 
 const createId = () => {
@@ -37,10 +169,10 @@ const INITIAL_EXAM = {
   duration: data.rules.defaultDuration,
   totalQuestions: data.rules.defaultTotalQuestions,
   level: data.levels[1]?.value || 'tb',
-  questions: [createNewQuestion(1)],
+  questions: [createNewQuestion()],
 }
 
-// 2. Hàm thuần túy: Validate & Tính toán
+// 3. Hàm thuần túy: Validate & Tính toán
 function validateExam(exam) {
   const errors = {
     general: {},
@@ -120,7 +252,7 @@ function validateExam(exam) {
   return { errors, isValid }
 }
 
-// 3. Component Con: Modal Xuất JSON
+// 4. Component Con: Modal Xuất JSON
 function JsonModal({ isOpen, onClose, dataObj }) {
   const [copied, setCopied] = useState(false)
 
@@ -134,7 +266,6 @@ function JsonModal({ isOpen, onClose, dataObj }) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2500)
     } catch {
-      // Fallback nếu trình duyệt chặn clipboard API
       const textarea = document.createElement('textarea')
       textarea.value = jsonString
       document.body.appendChild(textarea)
@@ -150,7 +281,7 @@ function JsonModal({ isOpen, onClose, dataObj }) {
     const blob = new Blob([jsonString], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
-    const fileName = `de-thi-${dataObj.subject || 'trac-nghiem'}-${Date.now()}.json`
+    const fileName = `de-thi-${dataObj.examInfo?.subject || 'trac-nghiem'}-${Date.now()}.json`
     link.href = url
     link.download = fileName
     document.body.appendChild(link)
@@ -168,7 +299,7 @@ function JsonModal({ isOpen, onClose, dataObj }) {
             <p className="bai03-modal-subtitle">Dữ liệu đã được định dạng chuẩn, có thể sao chép hoặc tải về file</p>
           </div>
           <button type="button" className="bai03-btn-icon" onClick={onClose} title="Đóng">
-            ✕
+            <IconClose />
           </button>
         </div>
 
@@ -180,10 +311,18 @@ function JsonModal({ isOpen, onClose, dataObj }) {
 
         <div className="bai03-modal-footer">
           <button type="button" className="bai03-btn bai03-btn-secondary" onClick={handleCopy}>
-            {copied ? '✓ Đã sao chép vào bộ nhớ tạm' : '📋 Sao chép JSON'}
+            {copied ? (
+              <>
+                <IconCheck /> Đã sao chép
+              </>
+            ) : (
+              <>
+                <IconCopy /> Sao chép JSON
+              </>
+            )}
           </button>
           <button type="button" className="bai03-btn bai03-btn-primary" onClick={handleDownload}>
-            💾 Tải file .json
+            <IconDownload /> Tải file .json
           </button>
           <button type="button" className="bai03-btn bai03-btn-outline" onClick={onClose}>
             Đóng
@@ -194,9 +333,8 @@ function JsonModal({ isOpen, onClose, dataObj }) {
   )
 }
 
-// 4. Component Chính
+// 5. Component Chính
 export default function Bai03() {
-  // Khởi tạo state từ localStorage (nếu có nháp) hoặc INITIAL_EXAM
   const [exam, setExam] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
@@ -225,7 +363,7 @@ export default function Bai03() {
     }
   }, [exam])
 
-  // Giá trị tính toán trực tiếp trong lúc render (Không lưu vào state theo claude.md)
+  // Giá trị tính toán trực tiếp trong lúc render
   const totalScore = exam.questions.reduce((sum, q) => sum + (Number(q.score) || 0), 0)
   const currentQuestionCount = exam.questions.length
   const { errors, isValid } = validateExam(exam)
@@ -245,10 +383,9 @@ export default function Bai03() {
     }))
   }
 
-  // --- QUẢN LÝ CÂU HỎI ---
   // 1. Thêm câu hỏi mới
   const handleAddQuestion = () => {
-    const newQ = createNewQuestion(exam.questions.length + 1)
+    const newQ = createNewQuestion()
     setExam((prev) => ({
       ...prev,
       questions: [...prev.questions, newQ],
@@ -292,7 +429,6 @@ export default function Bai03() {
       questions: prev.questions.map((q) => {
         if (q.id === questionId) {
           let updatedOptions = [...q.options]
-          // Nếu chuyển về single mà đang có nhiều đáp án đúng, chỉ giữ lại đáp án đúng đầu tiên
           if (newType === 'single') {
             let foundFirstCorrect = false
             updatedOptions = updatedOptions.map((opt) => {
@@ -302,7 +438,6 @@ export default function Bai03() {
               }
               return { ...opt, isCorrect: false }
             })
-            // Nếu chưa có đáp án đúng nào, chọn đáp án đầu tiên
             if (!foundFirstCorrect && updatedOptions.length > 0) {
               updatedOptions[0] = { ...updatedOptions[0], isCorrect: true }
             }
@@ -318,7 +453,6 @@ export default function Bai03() {
     }))
   }
 
-  // --- QUẢN LÝ ĐÁP ÁN ---
   // 4. Thêm đáp án cho câu hỏi
   const handleAddOption = (questionId) => {
     setExam((prev) => ({
@@ -354,7 +488,6 @@ export default function Bai03() {
       questions: prev.questions.map((q) => {
         if (q.id === questionId) {
           const filteredOptions = q.options.filter((opt) => opt.id !== optionId)
-          // Nếu đáp án bị xóa là đáp án đúng duy nhất, tự chọn đáp án đầu tiên làm đáp án đúng
           const stillHasCorrect = filteredOptions.some((opt) => opt.isCorrect)
           if (!stillHasCorrect && filteredOptions.length > 0) {
             filteredOptions[0] = { ...filteredOptions[0], isCorrect: true }
@@ -393,13 +526,11 @@ export default function Bai03() {
         if (q.id === questionId) {
           let updatedOptions
           if (questionType === 'single') {
-            // Chỉ 1 đáp án được đúng
             updatedOptions = q.options.map((opt) => ({
               ...opt,
               isCorrect: opt.id === optionId,
             }))
           } else {
-            // Nhiều đáp án được đúng: toggle
             updatedOptions = q.options.map((opt) => {
               if (opt.id === optionId) {
                 return { ...opt, isCorrect: !opt.isCorrect }
@@ -417,7 +548,6 @@ export default function Bai03() {
     }))
   }
 
-  // --- CÁC HÀNH ĐỘNG KHÁC ---
   // Nạp đề thi mẫu
   const handleLoadSample = () => {
     setExam(data.sampleExam)
@@ -429,7 +559,7 @@ export default function Bai03() {
   const handleReset = () => {
     const freshExam = {
       ...INITIAL_EXAM,
-      questions: [createNewQuestion(1)],
+      questions: [createNewQuestion()],
     }
     setExam(freshExam)
     setIsSubmitted(false)
@@ -443,7 +573,6 @@ export default function Bai03() {
     setIsSubmitted(true)
     if (!isValid) {
       triggerNotification('Vui lòng kiểm tra và sửa các lỗi bên dưới trước khi lưu!', 'warning')
-      // Cuộn lên phần tử lỗi đầu tiên
       const firstErrorEl = document.querySelector('.bai03-error-text, .bai03-input-error')
       if (firstErrorEl) {
         firstErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -451,12 +580,11 @@ export default function Bai03() {
       return
     }
 
-    // Đề thi hoàn toàn hợp lệ -> Mở modal JSON và báo thành công
     setShowJsonModal(true)
     triggerNotification('Lưu đề thi thành công! Dữ liệu JSON đã sẵn sàng xuất.')
   }
 
-  // Xem trước tương tác cho sinh viên
+  // Xem trước tương tác
   const handlePreviewAnswerSelect = (questionId, optionId, questionType) => {
     if (questionType === 'single') {
       setPreviewUserAnswers((prev) => ({ ...prev, [questionId]: optionId }))
@@ -469,7 +597,6 @@ export default function Bai03() {
     }
   }
 
-  // Nhãn môn học & mức độ
   const currentSubjectLabel = data.subjects.find((s) => s.value === exam.subject)?.label || exam.subject
   const currentLevelLabel = data.levels.find((l) => l.value === exam.level)?.label || exam.level
 
@@ -485,30 +612,42 @@ export default function Bai03() {
           </p>
         </div>
 
-        {/* Thanh chuyển đổi Tab & Chức năng */}
-        <div className="bai03-tab-switch">
+        {/* Thanh chuyển đổi Segmented Control (Thiết kế cao cấp, diệt AI-slop) */}
+        <div className="bai03-segmented-control" role="tablist">
           <button
             type="button"
-            className={`bai03-tab-btn ${activeTab === 'editor' ? 'active' : ''}`}
+            role="tab"
+            aria-selected={activeTab === 'editor'}
+            className={`bai03-segment-btn ${activeTab === 'editor' ? 'active' : ''}`}
             onClick={() => setActiveTab('editor')}
           >
-            ✏️ Soạn thảo đề thi
+            <IconEdit />
+            <span>Soạn thảo đề thi</span>
           </button>
           <button
             type="button"
-            className={`bai03-tab-btn ${activeTab === 'preview' ? 'active' : ''}`}
+            role="tab"
+            aria-selected={activeTab === 'preview'}
+            className={`bai03-segment-btn ${activeTab === 'preview' ? 'active' : ''}`}
             onClick={() => setActiveTab('preview')}
           >
-            👁️ Xem trước đề thi ({currentQuestionCount} câu)
+            <IconEye />
+            <span>Xem trước đề thi ({currentQuestionCount} câu)</span>
           </button>
         </div>
       </div>
 
-      {/* Thông báo Alert Toast */}
+      {/* Thông báo Alert Toast với Icon SVG */}
       {notification && (
         <div className={`bai03-toast bai03-toast-${notification.type}`} role="status">
           <span className="bai03-toast-icon">
-            {notification.type === 'success' ? '✓' : notification.type === 'warning' ? '⚠️' : 'ℹ️'}
+            {notification.type === 'success' ? (
+              <IconCheck />
+            ) : notification.type === 'warning' ? (
+              <IconAlertTriangle />
+            ) : (
+              <IconInfo />
+            )}
           </span>
           <span className="bai03-toast-text">{notification.message}</span>
         </div>
@@ -518,7 +657,9 @@ export default function Bai03() {
       <div className="bai03-stat-bar">
         <div className="bai03-stat-item">
           <span className="bai03-stat-label">Tổng điểm đề thi</span>
-          <span className="bai03-stat-value bai03-score-highlight">{totalScore.toFixed(2).replace(/\.00$/, '')} điểm</span>
+          <span className="bai03-stat-value bai03-score-highlight">
+            {totalScore.toFixed(2).replace(/\.00$/, '')} điểm
+          </span>
         </div>
         <div className="bai03-stat-item">
           <span className="bai03-stat-label">Số câu hỏi hiện có</span>
@@ -532,9 +673,10 @@ export default function Bai03() {
         </div>
         <div className="bai03-stat-item">
           <span className="bai03-stat-label">Trạng thái kiểm tra</span>
-          <span className={`bai03-stat-badge ${isValid ? 'valid' : 'invalid'}`}>
-            {isValid ? '● Hợp lệ' : '● Cần bổ sung dữ liệu'}
-          </span>
+          <div className={`bai03-stat-badge ${isValid ? 'valid' : 'invalid'}`}>
+            <span className="bai03-badge-dot" />
+            <span>{isValid ? 'Hợp lệ' : 'Cần bổ sung dữ liệu'}</span>
+          </div>
         </div>
       </div>
 
@@ -549,10 +691,12 @@ export default function Bai03() {
               <h3 className="bai03-card-title">1. Thông tin chung của đề thi</h3>
               <div className="bai03-quick-actions">
                 <button type="button" className="bai03-btn-subtle" onClick={handleLoadSample}>
-                  ✨ Nạp đề mẫu
+                  <IconFileSample />
+                  <span>Nạp đề mẫu</span>
                 </button>
                 <button type="button" className="bai03-btn-subtle" onClick={handleReset}>
-                  🔄 Làm mới
+                  <IconRefresh />
+                  <span>Làm mới</span>
                 </button>
               </div>
             </div>
@@ -658,7 +802,8 @@ export default function Bai03() {
             {/* Cảnh báo số câu hỏi chưa khớp */}
             {errors.general.questionCountMismatch && (
               <div className="bai03-notice-inline">
-                ℹ️ {errors.general.questionCountMismatch}
+                <IconInfo />
+                <span>{errors.general.questionCountMismatch}</span>
               </div>
             )}
           </section>
@@ -673,7 +818,8 @@ export default function Bai03() {
                 </p>
               </div>
               <button type="button" className="bai03-btn bai03-btn-primary" onClick={handleAddQuestion}>
-                ＋ Thêm câu hỏi
+                <IconPlus />
+                <span>Thêm câu hỏi</span>
               </button>
             </div>
 
@@ -690,7 +836,7 @@ export default function Bai03() {
                       <div className="bai03-q-number-tag">
                         <span className="bai03-q-badge">Câu {qNumber}</span>
                         <span className="bai03-q-type-badge">
-                          {question.type === 'single' ? '◉ 1 đáp án đúng' : '☑ Nhiều đáp án đúng'}
+                          {question.type === 'single' ? 'Một đáp án đúng' : 'Nhiều đáp án đúng'}
                         </span>
                       </div>
 
@@ -717,7 +863,8 @@ export default function Bai03() {
                           onClick={() => handleDeleteQuestion(question.id, qIdx)}
                           title="Xóa câu hỏi này"
                         >
-                          🗑️ Xóa
+                          <IconTrash />
+                          <span>Xóa</span>
                         </button>
                       </div>
                     </div>
@@ -764,12 +911,12 @@ export default function Bai03() {
                     <div className="bai03-options-section">
                       <div className="bai03-options-header">
                         <span className="bai03-field-label">
-                          Danh sách đáp án (Tick chọn đáp án đúng):
+                          Danh sách đáp án:
                         </span>
                         <span className="bai03-options-hint">
                           {question.type === 'single'
-                            ? 'Chọn nút tròn (Radio) cho đáp án duy nhất đúng'
-                            : 'Tick ô vuông (Checkbox) cho tất cả đáp án đúng'}
+                            ? 'Chọn nút tròn cho đáp án duy nhất đúng'
+                            : 'Tick ô vuông cho tất cả đáp án đúng'}
                         </span>
                       </div>
 
@@ -833,7 +980,10 @@ export default function Bai03() {
 
                               {/* Badge nhãn Đúng */}
                               {opt.isCorrect && (
-                                <span className="bai03-badge-correct">✓ Đáp án đúng</span>
+                                <span className="bai03-badge-correct">
+                                  <IconCheck />
+                                  <span>Đáp án đúng</span>
+                                </span>
                               )}
 
                               {/* Nút xóa đáp án */}
@@ -844,7 +994,7 @@ export default function Bai03() {
                                 title="Xóa đáp án này"
                                 disabled={question.options.length <= data.rules.minAnswers}
                               >
-                                ✕
+                                <IconClose />
                               </button>
                             </div>
                           )
@@ -858,7 +1008,8 @@ export default function Bai03() {
                         onClick={() => handleAddOption(question.id)}
                         disabled={question.options.length >= data.rules.maxAnswers}
                       >
-                        ＋ Thêm đáp án ({question.options.length}/{data.rules.maxAnswers})
+                        <IconPlus />
+                        <span>Thêm đáp án ({question.options.length}/{data.rules.maxAnswers})</span>
                       </button>
                     </div>
                   </div>
@@ -869,7 +1020,8 @@ export default function Bai03() {
             {/* Nút thêm câu hỏi ở cuối danh sách */}
             <div className="bai03-add-question-footer">
               <button type="button" className="bai03-btn bai03-btn-outline" onClick={handleAddQuestion}>
-                ＋ Thêm câu hỏi tiếp theo (Câu {exam.questions.length + 1})
+                <IconPlus />
+                <span>Thêm câu hỏi tiếp theo (Câu {exam.questions.length + 1})</span>
               </button>
             </div>
           </section>
@@ -888,10 +1040,12 @@ export default function Bai03() {
                 className="bai03-btn bai03-btn-secondary"
                 onClick={() => setActiveTab('preview')}
               >
-                👁️ Xem trước đề thi
+                <IconEye />
+                <span>Xem trước đề thi</span>
               </button>
               <button type="button" className="bai03-btn bai03-btn-primary" onClick={handleSaveExam}>
-                💾 Lưu đề thi & Xuất JSON
+                <IconSave />
+                <span>Lưu đề thi & Xuất JSON</span>
               </button>
             </div>
           </div>
@@ -910,7 +1064,8 @@ export default function Bai03() {
               className="bai03-btn bai03-btn-outline"
               onClick={() => setActiveTab('editor')}
             >
-              ← Quay lại soạn thảo
+              <IconArrowLeft />
+              <span>Quay lại soạn thảo</span>
             </button>
             <div className="bai03-preview-toggles">
               <label className="bai03-toggle-label">
@@ -922,7 +1077,8 @@ export default function Bai03() {
                 <span>Hiện đáp án đúng & giải thích (Dành cho Giảng viên)</span>
               </label>
               <button type="button" className="bai03-btn bai03-btn-primary" onClick={handleSaveExam}>
-                💾 Lưu đề thi & Xuất JSON
+                <IconSave />
+                <span>Lưu đề thi & Xuất JSON</span>
               </button>
             </div>
           </div>
@@ -932,8 +1088,8 @@ export default function Bai03() {
             {/* Header tờ đề thi */}
             <div className="bai03-paper-header">
               <div className="bai03-paper-school">
-                <h4>TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h4>
-                <p>KHOA CÔNG NGHỆ PHẦN MỀM</p>
+                <h4>TRƯỜNG ĐẠI HỌC CÔNG NGHỆ KỸ THUẬT THÀNH PHỐ HỒ CHÍ MINH</h4>
+                <p>KHOA CÔNG NGHỆ THÔNG TIN</p>
               </div>
               <div className="bai03-paper-meta-right">
                 <p>
@@ -1007,7 +1163,10 @@ export default function Bai03() {
                               {opt.text.trim() ? opt.text : '(Trống)'}
                             </span>
                             {isAnswerKey && (
-                              <span className="bai03-paper-badge-key">✓ Đáp án đúng</span>
+                              <span className="bai03-paper-badge-key">
+                                <IconCheck />
+                                <span>Đáp án đúng</span>
+                              </span>
                             )}
                           </div>
                         )
