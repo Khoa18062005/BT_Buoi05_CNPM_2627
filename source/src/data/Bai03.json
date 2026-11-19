@@ -1,1 +1,74 @@
-{}
+{
+  "subjects": [
+    { "value": "cnpm", "label": "Công nghệ phần mềm" },
+    { "value": "web", "label": "Lập trình Web với React" },
+    { "value": "csdl", "label": "Hệ quản trị Cơ sở dữ liệu" },
+    { "value": "mmt", "label": "Mạng máy tính & Truyền thông" },
+    { "value": "ctdl", "label": "Cấu trúc dữ liệu và Giải thuật" }
+  ],
+  "levels": [
+    { "value": "de", "label": "Dễ" },
+    { "value": "tb", "label": "Trung bình" },
+    { "value": "kho", "label": "Khó" }
+  ],
+  "questionTypes": [
+    { "value": "single", "label": "Một đáp án đúng" },
+    { "value": "multiple", "label": "Nhiều đáp án đúng" }
+  ],
+  "rules": {
+    "minAnswers": 2,
+    "maxAnswers": 8,
+    "defaultScore": 1,
+    "minScore": 0.25,
+    "maxScore": 10,
+    "minDuration": 5,
+    "maxDuration": 180,
+    "defaultDuration": 45,
+    "defaultTotalQuestions": 3
+  },
+  "sampleExam": {
+    "title": "Kiểm tra Giữa kỳ - Kiến trúc Phần mềm & React",
+    "subject": "cnpm",
+    "duration": 45,
+    "totalQuestions": 3,
+    "level": "tb",
+    "questions": [
+      {
+        "id": "q-sample-1",
+        "content": "Trong React 19, Hook nào sau đây được dùng để quản lý state cục bộ trong functional component?",
+        "type": "single",
+        "score": 3,
+        "options": [
+          { "id": "opt-1-1", "text": "useState", "isCorrect": true },
+          { "id": "opt-1-2", "text": "useEffect", "isCorrect": false },
+          { "id": "opt-1-3", "text": "useContext", "isCorrect": false },
+          { "id": "opt-1-4", "text": "useReducer", "isCorrect": false }
+        ]
+      },
+      {
+        "id": "q-sample-2",
+        "content": "Những đặc điểm nào sau đây thuộc về nguyên lý Clean Code và Ponytail trong phát triển phần mềm? (Chọn nhiều đáp án)",
+        "type": "multiple",
+        "score": 3.5,
+        "options": [
+          { "id": "opt-2-1", "text": "Tuân thủ quy tắc YAGNI (You Aren't Gonna Need It)", "isCorrect": true },
+          { "id": "opt-2-2", "text": "Ưu tiên sử dụng Web API bản địa thay vì cài thư viện nặng nề", "isCorrect": true },
+          { "id": "opt-2-3", "text": "Luôn tạo thật nhiều tầng Wrapper và Abstract Class phức tạp", "isCorrect": false },
+          { "id": "opt-2-4", "text": "Tối giản số dòng code, viết code tự giải thích (Self-documenting)", "isCorrect": true }
+        ]
+      },
+      {
+        "id": "q-sample-3",
+        "content": "Mô hình Agile / Scrum chia dự án thành các chu kỳ phát triển lặp đi lặp lại ngắn hạn gọi là gì?",
+        "type": "single",
+        "score": 3.5,
+        "options": [
+          { "id": "opt-3-1", "text": "Sprint / Iteration", "isCorrect": true },
+          { "id": "opt-3-2", "text": "Waterfall phase", "isCorrect": false },
+          { "id": "opt-3-3", "text": "Milestone gate", "isCorrect": false },
+          { "id": "opt-3-4", "text": "Release candidate", "isCorrect": false }
+        ]
+      }
+    ]
+  }
+}
