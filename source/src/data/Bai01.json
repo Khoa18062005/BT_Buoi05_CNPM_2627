@@ -1,1 +1,142 @@
-{}
+{
+  "genders": [
+    {
+      "value": "nam",
+      "label": "Nam"
+    },
+    {
+      "value": "nu",
+      "label": "Nữ"
+    },
+    {
+      "value": "khac",
+      "label": "Khác"
+    }
+  ],
+  "schools": [
+    {
+      "value": "dh-cntt",
+      "label": "Trường Đại học Công nghệ Thông tin",
+      "majors": [
+        {
+          "value": "ktpm",
+          "label": "Kỹ thuật phần mềm"
+        },
+        {
+          "value": "httt",
+          "label": "Hệ thống thông tin"
+        },
+        {
+          "value": "khmt",
+          "label": "Khoa học máy tính"
+        },
+        {
+          "value": "attt",
+          "label": "An toàn thông tin"
+        }
+      ]
+    },
+    {
+      "value": "dh-kinh-te",
+      "label": "Trường Đại học Kinh tế",
+      "majors": [
+        {
+          "value": "qtkd",
+          "label": "Quản trị kinh doanh"
+        },
+        {
+          "value": "ke-toan",
+          "label": "Kế toán"
+        },
+        {
+          "value": "tai-chinh",
+          "label": "Tài chính – Ngân hàng"
+        }
+      ]
+    },
+    {
+      "value": "dh-su-pham",
+      "label": "Trường Đại học Sư phạm",
+      "majors": [
+        {
+          "value": "sp-toan",
+          "label": "Sư phạm Toán học"
+        },
+        {
+          "value": "sp-tin",
+          "label": "Sư phạm Tin học"
+        },
+        {
+          "value": "sp-anh",
+          "label": "Sư phạm Tiếng Anh"
+        }
+      ]
+    },
+    {
+      "value": "dh-cnkt-tphcm",
+      "label": "Trường Đại học Công nghệ Kỹ thuật TP.HCM",
+      "majors": [
+        {
+          "value": "cntt",
+          "label": "Công nghệ Thông tin"
+        },
+        {
+          "value": "ktdl",
+          "label": "Kỹ thuật Dữ liệu"
+        },
+        {
+          "value": "attt",
+          "label": "An toàn Thông tin"
+        }
+      ]
+    }
+  ],
+  "trainingSystems": [
+    {
+      "value": "chinh-quy",
+      "label": "Chính quy"
+    },
+    {
+      "value": "chat-luong-cao",
+      "label": "Chất lượng cao"
+    },
+    {
+      "value": "lien-thong",
+      "label": "Liên thông"
+    },
+    {
+      "value": "tu-xa",
+      "label": "Đào tạo từ xa"
+    }
+  ],
+  "admissionYears": [
+    2026,
+    2027
+  ],
+  "rules": {
+    "fullNameMaxLength": 50,
+    "addressMaxLength": 200,
+    "noteMaxLength": 500,
+    "minAge": 17,
+    "maxAge": 30,
+    "gpaMin": 0,
+    "gpaMax": 10,
+    "avatar": {
+      "maxSizeMB": 2,
+      "accept": [
+        "image/jpeg",
+        "image/png"
+      ],
+      "acceptLabel": "JPG, PNG"
+    },
+    "transcript": {
+      "maxSizeMB": 5,
+      "accept": [
+        "application/pdf",
+        "image/jpeg",
+        "image/png"
+      ],
+      "acceptLabel": "PDF, JPG, PNG"
+    }
+  }
+}

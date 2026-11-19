@@ -1,56 +1,199 @@
+/* ===== Trang chủ: bầu trời buổi sáng, chỉ đường tới nút "ngôi nhà" ===== */
+
+.home {
+  position: relative;
+}
+
+/* ---------- Bầu trời ---------- */
+.home .home-hero {
+  position: relative;
+  padding: 72px 48px 64px;
+  border-radius: 32px;
+  background: linear-gradient(170deg, #cfe4ff 0%, #e6f1ff 55%, #f7fbff 100%);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.home .home-sun {
+  position: absolute;
+  top: -70px;
+  right: -40px;
+  z-index: -1;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow:
+    0 0 0 28px rgba(255, 210, 63, 0.28),
+    0 0 0 60px rgba(255, 210, 63, 0.14);
+  animation: home-sun-rise 1.1s var(--ease-out) both;
+}
+
+.home .home-cloud {
+  position: absolute;
+  z-index: -1;
+  height: 34px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+}
+
+.home .home-cloud::before {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 22%;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.home .home-cloud-a {
+  top: 120px;
+  right: 170px;
+  width: 120px;
+}
+
+.home .home-cloud-b {
+  bottom: 34px;
+  right: 60px;
+  width: 84px;
+  height: 26px;
+  opacity: 0.85;
+}
+
 .home h2 {
-  font-size: 1.5rem;
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
 }
 
-.home .home-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--gap);
-  margin-top: 20px;
+/* Gạch chân vàng chanh như bút dạ quang */
+.home h2 mark {
+  padding: 0 0.08em;
+  background: linear-gradient(transparent 58%, var(--color-accent) 58%, var(--color-accent) 92%, transparent 92%);
+  color: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
-.home .home-card {
+.home .home-hero .subtitle {
+  max-width: 46ch;
+  margin-top: 18px;
+  color: #3f4d66;
+  font-size: 1.125rem;
+}
+
+/* ---------- Gợi ý + mũi tên chỉ xuống góc phải ---------- */
+/* Neo theo góc màn hình (giống nút ngôi nhà) để mũi tên luôn chỉ đúng vào nút */
+.home .home-hint {
+  position: fixed;
+  right: 92px;
+  bottom: 62px;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.home .home-hint p {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 20px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  color: inherit;
-  text-decoration: none;
-  transition: border-color 0.15s, transform 0.15s;
+  gap: 2px;
+  max-width: 34ch;
+  padding-bottom: 40px;
+  text-align: right;
 }
 
-.home .home-card:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
+.home .home-hint strong {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
-.home .home-card-label {
-  align-self: flex-start;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: var(--color-primary);
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-.home .home-card p {
+.home .home-hint span {
   color: var(--color-muted);
-  font-size: 0.9rem;
-  flex: 1;
 }
 
-.home .home-card-link {
-  color: var(--color-primary);
-  font-weight: 600;
+.home .home-arrow {
+  flex-shrink: 0;
+  width: 96px;
+  height: auto;
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 0;
+  animation: home-arrow-draw 1s var(--ease-out) 0.5s both;
+}
+
+@keyframes home-sun-rise {
+  from {
+    transform: translate(30px, 40px) scale(0.85);
+  }
+}
+
+@keyframes home-arrow-draw {
+  from {
+    stroke-dashoffset: 220;
+  }
 }
 
 @media (max-width: 768px) {
-  .home .home-grid {
-    grid-template-columns: 1fr;
+  .home .home-hero {
+    padding: 48px 22px 40px;
+    border-radius: 24px;
+  }
+
+  .home .home-sun {
+    top: -60px;
+    right: -60px;
+    width: 170px;
+    height: 170px;
+  }
+
+  .home .home-cloud-a {
+    top: auto;
+    bottom: 22px;
+    right: 120px;
+    width: 90px;
+  }
+
+  .home .home-cloud-b {
+    display: none;
+  }
+
+  .home .home-hero .subtitle {
+    font-size: 1rem;
+  }
+
+  .home .home-hint {
+    right: 80px;
+    bottom: 56px;
+    left: 16px;
+    justify-content: flex-end;
+  }
+
+  .home .home-hint p {
+    padding-bottom: 30px;
+  }
+
+  .home .home-hint p {
+    max-width: 26ch;
+    font-size: 0.875rem;
+  }
+
+  .home .home-hint strong {
+    font-size: 1.0625rem;
+  }
+
+  .home .home-arrow {
+    width: 56px;
   }
 }

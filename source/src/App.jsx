@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Home from './pages/Home'
 import Bai01 from './pages/Bai01'
 import Bai02 from './pages/Bai02'
@@ -39,6 +39,74 @@ const ROUTES = [
 ]
 
 const HOME_PATH = '/'
+
+// Nút "ngôi nhà" nổi ở góc dưới bên phải: hover (hoặc bấm) để hiện các bài tập
+function HouseNav({ routes, currentPath, onNavigate }) {
+  const [open, setOpen] = useState(false)
+  const navRef = useRef(null)
+
+  // Đóng menu khi bấm ra ngoài hoặc nhấn Esc
+  useEffect(() => {
+    if (!open) return undefined
+    const handlePointerDown = (e) => {
+      if (!navRef.current?.contains(e.target)) setOpen(false)
+    }
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [open])
+
+  return (
+    <nav
+      ref={navRef}
+      className={open ? 'house-nav open' : 'house-nav'}
+      aria-label="Danh sách bài tập"
+      onMouseLeave={() => setOpen(false)}
+    >
+      <ul id="house-menu" className="house-menu">
+        {routes.map((r, index) => (
+          // --i: thứ tự xuất hiện, nút gần ngôi nhà nhất hiện trước
+          <li key={r.path} style={{ '--i': routes.length - 1 - index }}>
+            <a
+              href={`#${r.path}`}
+              className={r.path === currentPath ? 'house-link active' : 'house-link'}
+              aria-current={r.path === currentPath ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault()
+                setOpen(false)
+                onNavigate(r.path)
+              }}
+            >
+              <span className="house-link-label">{r.label}</span>
+              <span className="house-link-title">{r.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        className="house-btn"
+        aria-expanded={open}
+        aria-controls="house-menu"
+        aria-label="Chọn bài tập"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path className="house-roof" d="M2.5 11 12 3l9.5 8" />
+          <path className="house-walls" d="M5 9.5V20.5h14V9.5" />
+          <path className="house-door" d="M10 20.5v-5.5a2 2 0 0 1 4 0v5.5z" />
+        </svg>
+      </button>
+    </nav>
+  )
+}
 
 // Đọc đường dẫn hiện tại từ hash: "#/bai01" -> "/bai01"
 function getPathFromHash() {
@@ -82,30 +150,10 @@ function App() {
               navigate(HOME_PATH)
             }}
           >
+            <span className="app-logo" aria-hidden="true" />
             Bài tập Buổi 05 — React
           </a>
         </h1>
-        <nav className="app-nav">
-          <button
-            type="button"
-            className={isHome ? 'nav-btn active' : 'nav-btn'}
-            onClick={() => navigate(HOME_PATH)}
-          >
-            <span className="nav-label">Trang chủ</span>
-            <span className="nav-title">Danh sách bài</span>
-          </button>
-          {ROUTES.map((r) => (
-            <button
-              key={r.path}
-              type="button"
-              className={r.path === path ? 'nav-btn active' : 'nav-btn'}
-              onClick={() => navigate(r.path)}
-            >
-              <span className="nav-label">{r.label}</span>
-              <span className="nav-title">{r.title}</span>
-            </button>
-          ))}
-        </nav>
       </header>
 
       <main className="app-main">
@@ -152,6 +200,8 @@ function App() {
           </div>
         )}
       </main>
+
+      <HouseNav routes={ROUTES} currentPath={path} onNavigate={navigate} />
     </div>
   )
 }
