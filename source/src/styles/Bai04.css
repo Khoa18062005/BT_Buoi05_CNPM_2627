@@ -1,3 +1,1100 @@
-/* CSS riêng cho Bài 4 — mọi selector bắt đầu bằng .bai04 */
-.bai04 {
+/*
+  Bài 4: Thêm mới nhân viên — mọi selector bắt đầu bằng .bai04
+  Dùng chung ngôn ngữ thiết kế "trời xanh, nắng chanh" với Bài 1 (token trong index.css):
+  thẻ trắng cho từng nhóm, ô nhập cao 48px, lưới 6 phần.
+  Phần riêng của Bài 4: ô chọn nhiều (kỹ năng, ngoại ngữ), danh sách chứng chỉ,
+  hồ sơ nhân viên sau khi lưu và bảng danh sách nhân viên.
+*/
+
+.bai04 h2 {
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  line-height: 1.08;
+}
+
+.bai04 .muted {
+  color: var(--color-muted);
+}
+
+.bai04 .pre-line {
+  white-space: pre-line;
+}
+
+
+/* ---------- Các nhóm thông tin: thẻ trắng nổi trên nền trời ---------- */
+.bai04 .card {
+  margin-bottom: 18px;
+  padding: 28px 32px 32px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sheet);
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.bai04 .card:last-of-type {
+  margin-bottom: 24px;
+}
+
+.bai04 .card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  color: var(--color-text);
+  font-size: 1.375rem;
+}
+
+/* Chấm vàng chanh trước tiêu đề nhóm */
+.bai04 .card-title::before {
+  content: '';
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 5px var(--color-accent-soft);
+}
+
+/* ---------- Lưới & trường nhập ----------
+   Lưới 6 phần để chia hàng cân đối:
+   - Cá nhân:  Họ tên (4) | Giới tính (2) / Ngày sinh (2) | SĐT (2) | Email (2) / Địa chỉ (6)
+   - Đăng ký:  Trường (3) | Ngành (3) / Hệ đào tạo (2) | Năm (2) | Điểm TB (2)
+   - Bổ sung:  Ảnh (3) | Học bạ (3) / Ghi chú (6)
+*/
+.bai04 .form-grid {
+  --control-height: 48px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px 20px;
+}
+
+.bai04 .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.bai04 .span-2 {
+  grid-column: span 2;
+}
+
+.bai04 .span-3 {
+  grid-column: span 3;
+}
+
+.bai04 .span-4 {
+  grid-column: span 4;
+}
+
+.bai04 .span-6 {
+  grid-column: 1 / -1;
+}
+
+.bai04 .form-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.bai04 .required {
+  color: var(--color-danger);
+}
+
+.bai04 .hint {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.bai04 input[type='text'],
+.bai04 input[type='tel'],
+.bai04 input[type='email'],
+.bai04 input[type='date'],
+.bai04 input[type='number'],
+.bai04 select,
+.bai04 textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: #f8fbff;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+/* Ô một dòng: cùng một chiều cao trên mọi trình duyệt (Safari tự co select & date) */
+.bai04 input[type='text'],
+.bai04 input[type='tel'],
+.bai04 input[type='email'],
+.bai04 input[type='date'],
+.bai04 input[type='number'],
+.bai04 select {
+  height: var(--control-height);
+  min-height: 0;
+  line-height: 1.25;
+}
+
+.bai04 input[type='date'] {
+  display: flex;
+  align-items: center;
+}
+
+.bai04 input[type='date']::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+.bai04 select {
+  padding-right: 42px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2355627a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+  background-size: 18px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.bai04 textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.bai04 input::placeholder,
+.bai04 textarea::placeholder {
+  color: #6e7a90;
+}
+
+.bai04 input:hover,
+.bai04 select:hover:not(:disabled),
+.bai04 textarea:hover {
+  border-color: var(--color-primary-soft);
+}
+
+.bai04 input:focus,
+.bai04 select:focus,
+.bai04 textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: var(--color-surface);
+  box-shadow: var(--focus-ring);
+}
+
+.bai04 select:disabled {
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
+/* .form-group tăng độ ưu tiên để thắng .bai04 input[type='...'] */
+.bai04 .form-group .input-error,
+.bai04 .form-group .input-error:hover {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-tint);
+}
+
+.bai04 .form-group .input-error:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 4px rgba(217, 45, 32, 0.16);
+}
+
+.bai04 .error-text {
+  display: flex;
+  gap: 6px;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.bai04 .error-text::before {
+  content: '!';
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+/* ---------- Giới tính: radio dạng viên thuốc ---------- */
+.bai04 .radio-group {
+  display: flex;
+  gap: 8px;
+}
+
+.bai04 .radio-group.input-error {
+  background: none;
+}
+
+.bai04 .radio-item {
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-height);
+  padding: 0 10px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+
+.bai04 .radio-group.input-error .radio-item {
+  border-color: var(--color-danger);
+}
+
+.bai04 .radio-item input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bai04 .radio-item:hover {
+  border-color: var(--color-primary-soft);
+  background: var(--color-primary-tint);
+}
+
+.bai04 .radio-item:has(input:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.bai04 .radio-item:has(input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+/* ---------- Tải file ---------- */
+.bai04 .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.bai04 .file-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--file-box-height, 138px);
+  padding: 16px;
+  border: 2px dashed var(--color-primary-soft);
+  border-radius: var(--radius);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.bai04 .file-drop:hover {
+  border-color: var(--color-primary);
+  background: #dceaff;
+}
+
+.bai04 .file-drop.input-error {
+  border-color: var(--color-danger);
+  background: var(--color-danger-tint);
+  color: var(--color-danger);
+}
+
+/* Icon tải lên vẽ bằng SVG (thay cho emoji trong JSX) */
+.bai04 .file-drop-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: currentColor;
+  font-size: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3Cpath d='M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3Cpath d='M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.bai04 .file-name {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bai04 .file-size {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.bai04 .file-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+
+/* ---------- Tóm tắt lỗi ---------- */
+.bai04 .error-summary {
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  border: 1px solid #f6c3be;
+  border-radius: var(--radius);
+  background: var(--color-danger-tint);
+  color: var(--color-danger);
+}
+
+/* ---------- Nút ---------- */
+.bai04 .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.bai04 .actions.center {
+  justify-content: center;
+}
+
+.bai04 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 26px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+
+.bai04 .btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.bai04 .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.bai04 .btn-primary {
+  min-width: 150px;
+  background: var(--color-primary);
+  box-shadow: 0 8px 18px -10px rgba(31, 111, 235, 0.8);
+  color: #fff;
+}
+
+.bai04 .btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 12px 22px -10px rgba(31, 111, 235, 0.85);
+  transform: translateY(-1px);
+}
+
+.bai04 .btn-secondary {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.bai04 .btn-secondary:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+}
+
+.bai04 .btn-danger {
+  background: transparent;
+  color: var(--color-danger);
+}
+
+.bai04 .btn-danger:hover {
+  background: var(--color-danger-tint);
+}
+
+.bai04 .btn-small {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 0.8125rem;
+}
+
+/* ---------- Máy tính bảng: lưới 2 cột ---------- */
+@media (max-width: 900px) {
+  .bai04 .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bai04 .span-2,
+  .bai04 .span-3 {
+    grid-column: span 1;
+  }
+
+  .bai04 .span-4,
+  .bai04 .span-6 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Điện thoại: lưới 1 cột ---------- */
+@media (max-width: 640px) {
+  .bai04 .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bai04 .span-2,
+  .bai04 .span-3,
+  .bai04 .span-4,
+  .bai04 .span-6 {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* Hàng tiêu đề: tên trường bên trái, gợi ý ngắn căn phải (góc trên bên phải ô nhập) */
+.bai04 .label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.bai04 .label-row .form-label {
+  flex-shrink: 0;
+}
+
+.bai04 .label-row .hint {
+  min-width: 0;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   PHẦN RIÊNG BÀI 4
+   ========================================================== */
+
+/* Ô ảnh chiếm 2 hàng, nằm cạnh Kỹ năng + Ngoại ngữ */
+.bai04 .row-span-2 {
+  grid-row: span 2;
+}
+
+.bai04 .row-span-2 .file-drop {
+  min-height: 236px;
+}
+
+/* ---------- Mã nhân viên ---------- */
+.bai04 .code-input {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.bai04 .hint {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+/* Nút "mã chưa dùng tiếp theo" nằm trong dòng gợi ý */
+.bai04 .link-chip {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 2px;
+  padding: 1px 9px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.bai04 .link-chip:hover {
+  background: #ffc61a;
+}
+
+/* ---------- Ô chọn nhiều: Kỹ năng, Ngoại ngữ ---------- */
+.bai04 .chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bai04 .chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+
+.bai04 .chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bai04 .chip:hover {
+  border-color: var(--color-primary-soft);
+}
+
+/* Đã chọn: chỉ đổi viền (và chữ) sang xanh, không dấu tích, không đổi nền */
+.bai04 .chip:has(input:checked) {
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 0.5px var(--color-primary);
+  color: var(--color-primary);
+}
+
+.bai04 .chip:has(input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+/* ---------- Ảnh nhân viên ---------- */
+.bai04 .avatar-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 236px;
+  padding: 16px 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.bai04 .avatar-box.has-error {
+  border-color: var(--color-danger);
+  background: var(--color-danger-tint);
+}
+
+.bai04 .visually-hidden:focus-visible + .avatar-box {
+  box-shadow: var(--focus-ring);
+}
+
+.bai04 .avatar-preview,
+.bai04 .avatar-placeholder {
+  width: 96px;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 6px;
+  border: 4px solid var(--color-surface);
+  border-radius: 10px;
+  background: var(--color-primary-tint);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    0 6px 14px -6px rgba(31, 111, 235, 0.45);
+  object-fit: cover;
+}
+
+.bai04 .file-name {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bai04 .file-size {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+.bai04 .avatar-box .file-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* ---------- Chứng chỉ (danh sách động) ---------- */
+.bai04 .cert-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bai04 .cert-empty {
+  padding: 16px;
+  border: 1.5px dashed var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.bai04 .cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bai04 .cert-row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px;
+  padding: 14px 14px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #f8fbff;
+  animation: bai04-reveal 0.3s var(--ease-out);
+}
+
+.bai04 .cert-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 26px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.bai04 .cert-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.bai04 .cert-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.bai04 .cert-label {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.bai04 .cert-field input {
+  background-color: var(--color-surface);
+}
+
+.bai04 .cert-remove {
+  margin-top: 26px;
+  height: 48px;
+}
+
+.bai04 .cert-add {
+  align-self: flex-start;
+}
+
+/* Ô xuất hiện theo thao tác (VD: Ngày kết thúc HĐ khi chọn thời vụ) */
+.bai04 .reveal {
+  animation: bai04-reveal 0.35s var(--ease-out);
+}
+
+@keyframes bai04-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* ---------- Trạng thái làm việc ---------- */
+.bai04 .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bai04 .status-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.bai04 .status-dang-lam {
+  background: var(--color-success-tint);
+  color: var(--color-success);
+}
+
+.bai04 .status-thu-viec {
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+}
+
+.bai04 .status-tam-nghi {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
+}
+
+.bai04 .status-da-nghi {
+  background: #eef0f4;
+  color: var(--color-muted);
+}
+
+/* ---------- Danh sách nhân viên ---------- */
+.bai04 .employee-list {
+  margin-top: 32px;
+}
+
+.bai04 details.employee-list summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 4px;
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.bai04 details.employee-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.bai04 details.employee-list summary::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.bai04 details.employee-list[open] summary::before {
+  transform: rotate(45deg);
+}
+
+.bai04 details.employee-list[open] .table-wrap {
+  margin-top: 10px;
+}
+
+.bai04 .employee-list.open h3 {
+  margin-bottom: 12px;
+  font-size: 1.375rem;
+}
+
+.bai04 .table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sheet);
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.bai04 .employee-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.bai04 .employee-table th,
+.bai04 .employee-table td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.bai04 .employee-table th {
+  border-bottom: 1px solid var(--color-border);
+  background: #f8fbff;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.bai04 .employee-table tbody tr + tr td {
+  border-top: 1px solid #e6eef9;
+}
+
+.bai04 .employee-table .code-cell {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Nhân viên vừa lưu */
+.bai04 .employee-table tr.is-new td {
+  background: var(--color-accent-soft);
+}
+
+/* ---------- Sau khi lưu ---------- */
+.bai04 .saved-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 22px 0 18px;
+  padding: 14px 18px;
+  border: 1px solid #bfe8d3;
+  border-radius: var(--radius);
+  background: var(--color-success-tint);
+  color: var(--color-success);
+}
+
+.bai04 .saved-banner::before {
+  content: '';
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-success)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5 10 16.5 18 8'/%3E%3C/svg%3E")
+    center / 14px no-repeat;
+}
+
+.bai04 .profile {
+  margin-bottom: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sheet);
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.bai04 .profile-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 26px 32px;
+  background: linear-gradient(170deg, #dcebff 0%, #f2f8ff 100%);
+}
+
+.bai04 .profile-avatar {
+  flex-shrink: 0;
+  width: 96px;
+  aspect-ratio: 3 / 4;
+  border: 4px solid var(--color-surface);
+  border-radius: 12px;
+  box-shadow: 0 8px 18px -8px rgba(31, 111, 235, 0.5);
+  object-fit: cover;
+}
+
+.bai04 .profile-avatar.initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.bai04 .profile-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.bai04 .profile-code {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.bai04 .profile-title h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.bai04 .profile-title p {
+  color: var(--color-muted);
+}
+
+.bai04 .profile-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 40px;
+  padding: 24px 32px 28px;
+}
+
+.bai04 .profile-extra {
+  grid-column: 1 / -1;
+}
+
+.bai04 .profile-body h4 {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.bai04 .info-list {
+  margin: 0 0 12px;
+}
+
+.bai04 .info-list > div {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.bai04 .info-list > div:last-child {
+  border-bottom: none;
+}
+
+.bai04 .info-list dt {
+  color: var(--color-muted);
+}
+
+.bai04 .info-list dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.bai04 .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.bai04 .tag {
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.bai04 .cert-summary {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.bai04 .cert-summary li + li {
+  margin-top: 4px;
+}
+
+.bai04 .cert-summary .muted {
+  font-weight: 400;
+}
+
+/* ---------- Responsive riêng Bài 4 ---------- */
+@media (max-width: 900px) {
+  .bai04 .row-span-2 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .bai04 .row-span-2 .file-drop,
+  .bai04 .avatar-box {
+    min-height: 0;
+  }
+
+  .bai04 .cert-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bai04 .cert-name {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bai04 .card {
+    padding: 22px 18px 24px;
+    border-radius: 18px;
+  }
+
+  .bai04 .card-title {
+    font-size: 1.1875rem;
+  }
+
+  .bai04 .actions {
+    flex-direction: column-reverse;
+  }
+
+  .bai04 .actions .btn {
+    width: 100%;
+  }
+
+  .bai04 .profile-head {
+    flex-wrap: wrap;
+    padding: 22px 18px;
+  }
+
+  .bai04 .profile-body {
+    grid-template-columns: 1fr;
+    padding: 18px 18px 22px;
+  }
+
+  .bai04 .info-list > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 640px) {
+  .bai04 .cert-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .bai04 .cert-index {
+    display: none;
+  }
+
+  .bai04 .cert-fields {
+    grid-template-columns: 1fr;
+  }
 }

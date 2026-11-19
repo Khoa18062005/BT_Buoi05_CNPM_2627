@@ -1,1 +1,126 @@
-{}
+{
+  "genders": [
+    { "value": "nam", "label": "Nam" },
+    { "value": "nu", "label": "Nữ" },
+    { "value": "khac", "label": "Khác" }
+  ],
+  "departments": [
+    {
+      "value": "cntt",
+      "label": "Phòng Công nghệ Thông tin",
+      "positions": ["Trưởng phòng", "Phó phòng", "Lập trình viên", "Kiểm thử phần mềm", "Quản trị hệ thống"]
+    },
+    {
+      "value": "nhan-su",
+      "label": "Phòng Nhân sự",
+      "positions": ["Trưởng phòng", "Chuyên viên tuyển dụng", "Chuyên viên C&B", "Thực tập sinh"]
+    },
+    {
+      "value": "ke-toan",
+      "label": "Phòng Kế toán",
+      "positions": ["Kế toán trưởng", "Kế toán tổng hợp", "Kế toán thuế", "Thủ quỹ"]
+    },
+    {
+      "value": "kinh-doanh",
+      "label": "Phòng Kinh doanh",
+      "positions": ["Trưởng phòng", "Nhân viên kinh doanh", "Chăm sóc khách hàng", "Marketing"]
+    }
+  ],
+  "contractTypes": [
+    { "value": "chinh-thuc", "label": "Chính thức (không thời hạn)" },
+    { "value": "co-thoi-han", "label": "Có thời hạn (1 – 3 năm)" },
+    { "value": "thu-viec", "label": "Thử việc" },
+    { "value": "thoi-vu", "label": "Thời vụ", "requiresEndDate": true }
+  ],
+  "statuses": [
+    { "value": "dang-lam", "label": "Đang làm việc" },
+    { "value": "thu-viec", "label": "Đang thử việc" },
+    { "value": "tam-nghi", "label": "Tạm nghỉ" },
+    { "value": "da-nghi", "label": "Đã nghỉ việc" }
+  ],
+  "skills": [
+    "ReactJS",
+    "NodeJS",
+    "Java",
+    "Python",
+    "SQL",
+    "Kiểm thử phần mềm",
+    "Phân tích nghiệp vụ",
+    "Thiết kế UI/UX",
+    "Excel nâng cao",
+    "Kế toán thuế",
+    "Đàm phán",
+    "Thuyết trình"
+  ],
+  "languages": ["Tiếng Anh", "Tiếng Nhật", "Tiếng Hàn", "Tiếng Trung", "Tiếng Pháp"],
+  "rules": {
+    "employeeCodePattern": "^NV\\d{3}$",
+    "employeeCodeExample": "NV011",
+    "fullNameMaxLength": 50,
+    "addressMaxLength": 200,
+    "minAge": 18,
+    "maxAge": 65,
+    "maxFutureStartDays": 90,
+    "earliestStartDate": "2000-01-01",
+    "maxSeasonalMonths": 12,
+    "minSalary": 1,
+    "maxSalary": 500000000,
+    "minCertificateYear": 1990,
+    "maxCertificates": 10,
+    "avatar": {
+      "maxSizeMB": 2,
+      "accept": ["image/jpeg", "image/png"],
+      "acceptLabel": "JPG, PNG"
+    }
+  },
+  "employees": [
+    {
+      "employeeCode": "NV001",
+      "fullName": "Nguyễn Văn An",
+      "department": "cntt",
+      "position": "Trưởng phòng",
+      "email": "an.nguyen@congty.vn",
+      "status": "dang-lam"
+    },
+    {
+      "employeeCode": "NV002",
+      "fullName": "Trần Thị Bình",
+      "department": "nhan-su",
+      "position": "Chuyên viên tuyển dụng",
+      "email": "binh.tran@congty.vn",
+      "status": "dang-lam"
+    },
+    {
+      "employeeCode": "NV003",
+      "fullName": "Lê Hoàng Cường",
+      "department": "ke-toan",
+      "position": "Kế toán tổng hợp",
+      "email": "cuong.le@congty.vn",
+      "status": "tam-nghi"
+    },
+    {
+      "employeeCode": "NV004",
+      "fullName": "Phạm Minh Dũng",
+      "department": "kinh-doanh",
+      "position": "Nhân viên kinh doanh",
+      "email": "dung.pham@congty.vn",
+      "status": "dang-lam"
+    },
+    {
+      "employeeCode": "NV005",
+      "fullName": "Võ Thị Em",
+      "department": "cntt",
+      "position": "Kiểm thử phần mềm",
+      "email": "em.vo@congty.vn",
+      "status": "thu-viec"
+    },
+    {
+      "employeeCode": "NV007",
+      "fullName": "Đặng Quốc Huy",
+      "department": "cntt",
+      "position": "Lập trình viên",
+      "email": "huy.dang@congty.vn",
+      "status": "da-nghi"
+    }
+  ]
+}
